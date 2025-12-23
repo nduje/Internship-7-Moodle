@@ -4,6 +4,9 @@ namespace Moodle.Domain.Entities.Materials
 {
     public class Material
     {
+        public const int NameMaxLength = 128;
+        public const int UrlMaxLength = 512;
+
         // Primary Key
         public required int Id { get; set; }
 

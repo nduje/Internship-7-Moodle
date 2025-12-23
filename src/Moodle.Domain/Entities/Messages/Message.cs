@@ -5,6 +5,8 @@ namespace Moodle.Domain.Entities.Messages
 {
     public class Message
     {
+        public const int ContentMaxLength = 2048;
+
         // Primary Key
         public required int Id { get; set; }
 

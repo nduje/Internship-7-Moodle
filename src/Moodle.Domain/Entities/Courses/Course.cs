@@ -4,6 +4,9 @@ namespace Moodle.Domain.Entities.Courses
 {
     public class Course
     {
+        public const int NameMaxLength = 64;
+        public const int DescriptionMaxLength = 1024;
+
         // Primary Key
         public required int Id { get; set; }
 

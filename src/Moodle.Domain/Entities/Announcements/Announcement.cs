@@ -4,6 +4,9 @@ namespace Moodle.Domain.Entities.Announcements
 {
     public class Announcement
     {
+        public const int TitleMaxLength = 128;
+        public const int ContentMaxLength = 1024;
+
         // Primary Key
         public required int Id { get; set; }
 
