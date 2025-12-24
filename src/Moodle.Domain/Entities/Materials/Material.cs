@@ -1,4 +1,7 @@
-﻿using Moodle.Domain.Entities.Courses;
+﻿using Moodle.Domain.Common.Model;
+using Moodle.Domain.Common.Validation;
+using Moodle.Domain.Common.Validation.ValidationItems;
+using Moodle.Domain.Entities.Courses;
 
 namespace Moodle.Domain.Entities.Materials
 {
@@ -11,13 +14,49 @@ namespace Moodle.Domain.Entities.Materials
         public required int Id { get; set; }
 
         // Attributes
-        public string Name { get; set; } = string.Empty;
-        public string Url { get; set; } = string.Empty;
+        public required string Name { get; set; }
+        public required string Url { get; set; }
 
         // Foreign Keys
         public required int CourseId { get; set; }
 
         // Navigation Properties
         public required Course Course { get; set; }
+
+        public async Task<Result<int?>> Create(/* Repository */)
+        {
+            var validationResult = await CreateOrUpdateValidation();
+
+            if (validationResult.HasError)
+            {
+                return new Result<int?>(null, validationResult);
+            }
+
+            // TODO: InsertAsync
+
+            return new Result<int?>(Id, validationResult);
+        }
+
+        public async Task<ValidationResult> CreateOrUpdateValidation()
+        {
+            var validationResult = new ValidationResult();
+
+            if (string.IsNullOrWhiteSpace(Name))
+                validationResult.AddValidationItem(ValidationItems.Material.MaterialNameRequired);
+
+            if (Name.Length > NameMaxLength)
+                validationResult.AddValidationItem(ValidationItems.Material.MaterialNameMaxLength);
+
+            if (string.IsNullOrWhiteSpace(Url))
+                validationResult.AddValidationItem(ValidationItems.Material.MaterialUrlRequired);
+
+            if (Url.Length > UrlMaxLength)
+                validationResult.AddValidationItem(ValidationItems.Material.MaterialUrlMaxLength);
+
+            if (Course == null)
+                validationResult.AddValidationItem(ValidationItems.Material.MaterialCourseNotFound);
+
+            return validationResult;
+        }
     }
 }

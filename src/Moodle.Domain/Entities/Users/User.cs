@@ -1,4 +1,8 @@
-﻿using Moodle.Domain.Enumerations.Users;
+﻿using Moodle.Domain.Common.Model;
+using Moodle.Domain.Enumerations.Users;
+using Moodle.Domain.Common.Validation;
+using Moodle.Domain.Common.Validation.ValidationItems;
+using System.Text.RegularExpressions;
 
 namespace Moodle.Domain.Entities.Users
 {
@@ -8,6 +12,8 @@ namespace Moodle.Domain.Entities.Users
         public const int EmailMaxLength = 128;
         public const int PasswordMinLength = 8;
         public const int PasswordMaxLength = 128;
+        private static readonly Regex EmailRegex = new Regex(@"^[^@\s]+@[^@\s]+\.[^@\s]+$");
+        private static readonly Regex PasswordRegex = new Regex("@\"^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)(?=.*[^a-zA-Z0-9]).+$");
 
         // Primary Key
         public required int Id { get; set; }
@@ -21,5 +27,62 @@ namespace Moodle.Domain.Entities.Users
         public required string Password { get; set; } = string.Empty;
         
         public UserRole Role { get; set; }
+
+        public async Task<Result<int?>> Create(/* Repository */)
+        {
+            var validationResult = await CreateOrUpdateValidation();
+
+            if (validationResult.HasError)
+            {
+                return new Result<int?>(null, validationResult);
+            }
+
+            // TODO: InsertAsync
+
+            return new Result<int?>(Id, validationResult);
+        }
+
+        public async Task<ValidationResult> CreateOrUpdateValidation()
+        {
+            var validationResult = new ValidationResult();
+
+            if (string.IsNullOrWhiteSpace(FirstName))
+                validationResult.AddValidationItem(ValidationItems.User.FirstNameRequired);
+
+            if (FirstName.Length > NameMaxLength)
+                validationResult.AddValidationItem(ValidationItems.User.FirstNameMaxLength);
+
+            if (string.IsNullOrWhiteSpace(LastName))
+                validationResult.AddValidationItem(ValidationItems.User.LastNameRequired);
+
+            if (LastName.Length > NameMaxLength)
+                validationResult.AddValidationItem(ValidationItems.User.LastNameMaxLength);
+
+            if (DateOfBirth > DateOnly.FromDateTime(DateTime.Today))
+                validationResult.AddValidationItem(ValidationItems.User.DateOfBirthInFuture);
+
+            if (string.IsNullOrWhiteSpace(Email))
+                validationResult.AddValidationItem(ValidationItems.User.EmailRequired);
+
+            if (Email.Length > EmailMaxLength)
+                validationResult.AddValidationItem(ValidationItems.User.EmailMaxLength);
+            
+            if (!string.IsNullOrWhiteSpace(Email) && !EmailRegex.IsMatch(Email))
+                validationResult.AddValidationItem(ValidationItems.User.EmailInvalidFormat);
+
+            if (string.IsNullOrWhiteSpace(Password))
+                validationResult.AddValidationItem(ValidationItems.User.PasswordRequired);
+
+            if (Password.Length < PasswordMinLength)
+                validationResult.AddValidationItem(ValidationItems.User.PasswordMinLength);
+
+            if (Password.Length > PasswordMaxLength)
+                validationResult.AddValidationItem(ValidationItems.User.PasswordMaxLength);
+
+            if (!string.IsNullOrWhiteSpace(Password) && !PasswordRegex.IsMatch(Password))
+                validationResult.AddValidationItem(ValidationItems.User.PasswordInvalidFormat);
+
+            return validationResult;
+        }
     }
 }

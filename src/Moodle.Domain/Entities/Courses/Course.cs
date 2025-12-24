@@ -1,4 +1,7 @@
-﻿using Moodle.Domain.Entities.Users;
+﻿using Moodle.Domain.Common.Model;
+using Moodle.Domain.Common.Validation;
+using Moodle.Domain.Common.Validation.ValidationItems;
+using Moodle.Domain.Entities.Users;
 
 namespace Moodle.Domain.Entities.Courses
 {
@@ -19,5 +22,35 @@ namespace Moodle.Domain.Entities.Courses
 
         // Navigation Properties
         public User? Professor { get; set; }
+
+        public async Task<Result<int?>> Create(/* Repository */)
+        {
+            var validationResult = await CreateOrUpdateValidation();
+
+            if (validationResult.HasError)
+            {
+                return new Result<int?>(null, validationResult);
+            }
+
+            // TODO: InsertAsync
+
+            return new Result<int?>(Id, validationResult);
+        }
+
+        public async Task<ValidationResult> CreateOrUpdateValidation()
+        {
+            var validationResult = new ValidationResult();
+
+            if (string.IsNullOrWhiteSpace(Name))
+                validationResult.AddValidationItem(ValidationItems.Course.CourseNameRequired);
+
+            if (Name.Length > NameMaxLength)
+                validationResult.AddValidationItem(ValidationItems.Course.CourseNameMaxLength);
+
+            if (Description?.Length > DescriptionMaxLength)
+                validationResult.AddValidationItem(ValidationItems.Course.CourseDescriptionMaxLength);
+
+            return validationResult;
+        }
     }
 }

@@ -1,4 +1,7 @@
-﻿using Moodle.Domain.Entities.Conversations;
+﻿using Moodle.Domain.Common.Model;
+using Moodle.Domain.Common.Validation;
+using Moodle.Domain.Common.Validation.ValidationItems;
+using Moodle.Domain.Entities.Conversations;
 using Moodle.Domain.Entities.Users;
 
 namespace Moodle.Domain.Entities.Messages
@@ -20,5 +23,38 @@ namespace Moodle.Domain.Entities.Messages
         // Navigation Properties
         public required Conversation Conversation { get; set; }
         public required User User { get; set; }
+
+        public async Task<Result<int?>> Create(/* Repository */)
+        {
+            var validationResult = await CreateOrUpdateValidation();
+
+            if (validationResult.HasError)
+            {
+                return new Result<int?>(null, validationResult);
+            }
+
+            // TODO: InsertAsync
+
+            return new Result<int?>(Id, validationResult);
+        }
+
+        public async Task<ValidationResult> CreateOrUpdateValidation()
+        {
+            var validationResult = new ValidationResult();
+
+            if (string.IsNullOrWhiteSpace(Content))
+                validationResult.AddValidationItem(ValidationItems.Message.MessageContentRequired);
+
+            if (Content.Length > ContentMaxLength)
+                validationResult.AddValidationItem(ValidationItems.Message.MessageContentMaxLength);
+
+            if (Conversation == null)
+                validationResult.AddValidationItem(ValidationItems.Message.MessageConversationNotFound);
+
+            if (User == null)
+                validationResult.AddValidationItem(ValidationItems.Message.MessageUserNotFound);
+
+            return validationResult;
+        }
     }
 }
