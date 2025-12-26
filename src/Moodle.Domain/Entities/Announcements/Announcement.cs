@@ -2,6 +2,7 @@
 using Moodle.Domain.Common.Validation;
 using Moodle.Domain.Common.Validation.ValidationItems;
 using Moodle.Domain.Entities.Courses;
+using Moodle.Domain.Persistence.Announcements;
 
 namespace Moodle.Domain.Entities.Announcements
 {
@@ -23,7 +24,7 @@ namespace Moodle.Domain.Entities.Announcements
         // Navigation Properties
         public required Course Course { get; set; }
 
-        public async Task<Result<int?>> Create(/* Repository */)
+        public async Task<Result<int?>> Create(IAnnouncementRepository announcementRepository)
         {
             var validationResult = await CreateOrUpdateValidation();
 
@@ -32,7 +33,7 @@ namespace Moodle.Domain.Entities.Announcements
                 return new Result<int?>(null, validationResult);
             }
 
-            // TODO: InsertAsync
+            await announcementRepository.InsertAsync(this);
 
             return new Result<int?>(Id, validationResult);
         }

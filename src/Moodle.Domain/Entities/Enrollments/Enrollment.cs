@@ -3,6 +3,7 @@ using Moodle.Domain.Common.Validation;
 using Moodle.Domain.Common.Validation.ValidationItems;
 using Moodle.Domain.Entities.Courses;
 using Moodle.Domain.Entities.Users;
+using Moodle.Domain.Persistence.Enrollments;
 
 namespace Moodle.Domain.Entities.Enrollments
 {
@@ -22,7 +23,7 @@ namespace Moodle.Domain.Entities.Enrollments
         public required User Student { get; set; }
         public required Course Course { get; set; }
 
-        public async Task<Result<int?>> Create(/* Repository */)
+        public async Task<Result<int?>> Create(IEnrollmentRepository enrollmentRepository)
         {
             var validationResult = await CreateOrUpdateValidation();
 
@@ -31,7 +32,7 @@ namespace Moodle.Domain.Entities.Enrollments
                 return new Result<int?>(null, validationResult);
             }
 
-            // TODO: InsertAsync
+            await enrollmentRepository.InsertAsync(this);
 
             return new Result<int?>(Id, validationResult);
         }

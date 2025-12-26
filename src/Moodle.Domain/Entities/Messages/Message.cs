@@ -3,6 +3,7 @@ using Moodle.Domain.Common.Validation;
 using Moodle.Domain.Common.Validation.ValidationItems;
 using Moodle.Domain.Entities.Conversations;
 using Moodle.Domain.Entities.Users;
+using Moodle.Domain.Persistence.Messages;
 
 namespace Moodle.Domain.Entities.Messages
 {
@@ -24,7 +25,7 @@ namespace Moodle.Domain.Entities.Messages
         public required Conversation Conversation { get; set; }
         public required User User { get; set; }
 
-        public async Task<Result<int?>> Create(/* Repository */)
+        public async Task<Result<int?>> Create(IMessageRepository messageRepository)
         {
             var validationResult = await CreateOrUpdateValidation();
 
@@ -33,7 +34,7 @@ namespace Moodle.Domain.Entities.Messages
                 return new Result<int?>(null, validationResult);
             }
 
-            // TODO: InsertAsync
+            await messageRepository.InsertAsync(this);
 
             return new Result<int?>(Id, validationResult);
         }

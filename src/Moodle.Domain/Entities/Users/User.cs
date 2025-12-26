@@ -2,6 +2,7 @@
 using Moodle.Domain.Enumerations.Users;
 using Moodle.Domain.Common.Validation;
 using Moodle.Domain.Common.Validation.ValidationItems;
+using Moodle.Domain.Persistence.Users;
 using System.Text.RegularExpressions;
 
 namespace Moodle.Domain.Entities.Users
@@ -28,7 +29,7 @@ namespace Moodle.Domain.Entities.Users
         
         public UserRole Role { get; set; }
 
-        public async Task<Result<int?>> Create(/* Repository */)
+        public async Task<Result<int?>> Create(IUserRepository userRepository)
         {
             var validationResult = await CreateOrUpdateValidation();
 
@@ -37,7 +38,7 @@ namespace Moodle.Domain.Entities.Users
                 return new Result<int?>(null, validationResult);
             }
 
-            // TODO: InsertAsync
+            await userRepository.InsertAsync(this);
 
             return new Result<int?>(Id, validationResult);
         }
