@@ -17,7 +17,7 @@ namespace Moodle.Domain.Entities.Users
         private static readonly Regex PasswordRegex = new Regex("@\"^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)(?=.*[^a-zA-Z0-9]).+$");
 
         // Primary Key
-        public required int Id { get; set; }
+        public Guid Id { get; init; } = Guid.NewGuid();
         
         // Attributes
         public required string FirstName { get; set; }

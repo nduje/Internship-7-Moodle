@@ -6,5 +6,6 @@ namespace Moodle.Domain.Persistence.Users
     public interface IUserRepository : IRepository<User, int>
     {
         Task<User?> GetById(int id);
+        Task<bool> EmailExists(string email);
     }
 }
