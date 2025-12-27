@@ -1,10 +1,11 @@
-﻿using Moodle.Application.Users.DTOs;
+﻿using Moodle.Application.Materials.DTOs;
+using Moodle.Application.Users.DTOs;
 using Moodle.Domain.Common.Model;
-using Moodle.Domain.Persistence.Users;
 using Moodle.Domain.Common.Validation;
 using Moodle.Domain.Common.Validation.ValidationItems;
 using Moodle.Domain.Entities.Users;
 using Moodle.Domain.Enumerations.Users;
+using Moodle.Domain.Persistence.Users;
 
 namespace Moodle.Application.Users.Requests
 {
@@ -21,14 +22,9 @@ namespace Moodle.Application.Users.Requests
         {
             var validationResult = new ValidationResult();
 
-            if (await _userRepository.EmailExists(request.Email))
+            if (await _userRepository.GetByEmail(request.Email) != null)
             {
-                validationResult.AddValidationItem(ValidationItems.User.EmailAlreadyExists);
-            }
-
-            if (validationResult.HasError)
-            {
-                return new Result<Guid?>(null, validationResult);
+                return Fail(ValidationItems.User.EmailAlreadyExists);   
             }
 
             var user = new User
@@ -42,6 +38,11 @@ namespace Moodle.Application.Users.Requests
             };
 
             return await user.Create(_userRepository);
+        }
+
+        Result<Guid?> Fail(ValidationItem item)
+        {
+            return new Result<Guid?>(null, new ValidationResult().AddValidationItem(item));
         }
     }
 }

@@ -1,5 +1,7 @@
 ﻿using Moodle.Application.Courses.DTOs;
+using Moodle.Application.Materials.DTOs;
 using Moodle.Domain.Common.Model;
+using Moodle.Domain.Common.Validation;
 using Moodle.Domain.Common.Validation.ValidationItems;
 using Moodle.Domain.Entities.Courses;
 using Moodle.Domain.Persistence.Courses;
@@ -24,30 +26,32 @@ namespace Moodle.Application.Courses.Handlers
                 ProfessorId = request.ProfessorId
             };
 
-            var validationResult = await course.CreateOrUpdateValidation();
-
-            if (validationResult.HasError)
+            if (await _courseRepository.GetByName(request.Name) != null)
             {
-                return new Result<AddCourseResponse?>(null, validationResult);
+                return Fail(ValidationItems.Course.CourseDuplicate);
             }
 
-            var existing = await _courseRepository.GetByName(request.Name);
+            var result = await course.Create(_courseRepository);
 
-            if (existing != null)
+            if (result.Value == null)
             {
-                validationResult.AddValidationItem(ValidationItems.Course.CourseDuplicate);
-
-                return new Result<AddCourseResponse?>(null, validationResult);
+                return new Result<AddCourseResponse?>(null, result.ValidationResult);
             }
-
-            await _courseRepository.InsertAsync(course);
 
             var response = new AddCourseResponse
             {
-                Id = course.Id
+                Id = course.Id,
+                Name = course.Name,
+                Description = course.Description,
+                ProfessorId = course.ProfessorId
             };
 
-            return new Result<AddCourseResponse?>(response, validationResult);
+            return new Result<AddCourseResponse?>(response, result.ValidationResult);
+        }
+
+        Result<AddCourseResponse?> Fail(ValidationItem item)
+        {
+            return new Result<AddCourseResponse?>(null, new ValidationResult().AddValidationItem(item));
         }
     }
 }

@@ -1,4 +1,6 @@
-﻿namespace Moodle.Domain.Common.Validation
+﻿using Moodle.Domain.Common.Model;
+
+namespace Moodle.Domain.Common.Validation
 {
     public class ValidationResult
     {
@@ -9,15 +11,19 @@
         public bool HasWarning => _validationItems.Any(validationResult => validationResult.ValidationSeverity == ValidationSeverity.Warning);
         public bool HasError => _validationItems.Any(validationResult => validationResult.ValidationSeverity == ValidationSeverity.Error);
 
-        public void AddValidationItem(ValidationItem validationItem)
+        public ValidationResult AddValidationItem(ValidationItem validationItem)
         {
             _validationItems.Add(validationItem);
+
+            return this;
         }
 
-        public void AddValidationItems(IEnumerable<ValidationItem> items)
+        public ValidationResult AddValidationItems(IEnumerable<ValidationItem> items)
         {
             if (items != null && items.Any())
                 _validationItems.AddRange(items);
+
+            return this;
         }
     }
 }
