@@ -29,18 +29,18 @@ namespace Moodle.Domain.Entities.Users
         
         public UserRole Role { get; set; }
 
-        public async Task<Result<int?>> Create(IUserRepository userRepository)
+        public async Task<Result<Guid?>> Create(IUserRepository userRepository)
         {
             var validationResult = await CreateOrUpdateValidation();
 
             if (validationResult.HasError)
             {
-                return new Result<int?>(null, validationResult);
+                return new Result<Guid?>(null, validationResult);
             }
 
             await userRepository.InsertAsync(this);
 
-            return new Result<int?>(Id, validationResult);
+            return new Result<Guid?>(Id, validationResult);
         }
 
         public async Task<ValidationResult> CreateOrUpdateValidation()

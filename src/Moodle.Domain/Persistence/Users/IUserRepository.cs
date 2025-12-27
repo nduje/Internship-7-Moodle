@@ -7,5 +7,6 @@ namespace Moodle.Domain.Persistence.Users
     {
         Task<User?> GetById(int id);
         Task<bool> EmailExists(string email);
+        Task<User?> GetByEmail(string email);
     }
 }

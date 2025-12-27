@@ -125,6 +125,14 @@
                 ValidationSeverity = ValidationSeverity.Error,
                 ValidationType = ValidationType.BussinessRule
             };
+
+            public static readonly ValidationItem InvalidCredentials = new ValidationItem()
+            {
+                Code = $"{CodePrefix}16",
+                Message = "Neispravni pristupni podaci",
+                ValidationSeverity = ValidationSeverity.Error,
+                ValidationType = ValidationType.BussinessRule
+            };
         }
     }
 }

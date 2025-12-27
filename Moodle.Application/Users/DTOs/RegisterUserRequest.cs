@@ -1,4 +1,4 @@
-﻿namespace Moodle.Application.Users.RegisterUser
+﻿namespace Moodle.Application.Users.DTOs
 {
     public class RegisterUserRequest
     {
