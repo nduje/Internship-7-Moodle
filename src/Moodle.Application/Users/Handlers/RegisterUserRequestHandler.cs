@@ -1,5 +1,4 @@
-﻿using Moodle.Application.Materials.DTOs;
-using Moodle.Application.Users.DTOs;
+﻿using Moodle.Application.Users.DTOs;
 using Moodle.Domain.Common.Model;
 using Moodle.Domain.Common.Validation;
 using Moodle.Domain.Common.Validation.ValidationItems;

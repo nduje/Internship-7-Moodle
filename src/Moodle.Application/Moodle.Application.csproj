@@ -7,11 +7,11 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\src\Moodle.Domain\Moodle.Domain.csproj" />
+    <Folder Include="Materials\Handlers\" />
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Materials\Handlers\" />
+    <ProjectReference Include="..\Moodle.Domain\Moodle.Domain.csproj" />
   </ItemGroup>
 
 </Project>
