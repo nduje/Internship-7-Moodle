@@ -12,30 +12,30 @@ namespace Moodle.Domain.Entities.Courses
         public const int DescriptionMaxLength = 1024;
 
         // Primary Key
-        public required int Id { get; set; }
+        public Guid Id { get; init; } = Guid.NewGuid();
 
         // Attributes
         public string Name { get; set; } = string.Empty;
         public string? Description { get; set; }
 
         // Foreign Keys
-        public int? ProfessorId { get; set; }
+        public Guid? ProfessorId { get; set; }
 
         // Navigation Properties
         public User? Professor { get; set; }
 
-        public async Task<Result<int?>> Create(ICourseRepository courseRepository)
+        public async Task<Result<Guid?>> Create(ICourseRepository courseRepository)
         {
             var validationResult = await CreateOrUpdateValidation();
 
             if (validationResult.HasError)
             {
-                return new Result<int?>(null, validationResult);
+                return new Result<Guid?>(null, validationResult);
             }
 
             await courseRepository.InsertAsync(this);
 
-            return new Result<int?>(Id, validationResult);
+            return new Result<Guid?>(Id, validationResult);
         }
 
         public async Task<ValidationResult> CreateOrUpdateValidation()

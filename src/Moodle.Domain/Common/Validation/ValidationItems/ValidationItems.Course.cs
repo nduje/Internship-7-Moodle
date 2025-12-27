@@ -37,6 +37,14 @@
                 ValidationSeverity = ValidationSeverity.Error,
                 ValidationType = ValidationType.BussinessRule
             };
+
+            public static readonly ValidationItem CourseDuplicate = new ValidationItem()
+            {
+                Code = $"{CodePrefix}5",
+                Message = "Kolegij s ovim imenom već postoji",
+                ValidationSeverity = ValidationSeverity.Error,
+                ValidationType = ValidationType.BussinessRule
+            };
         }
     }
 };
