@@ -1,0 +1,10 @@
+﻿namespace Moodle.Application.Materials.DTOs
+{
+    public  class AddMaterialResponse
+    {
+        public required Guid Id { get; init; }
+        public required string Name { get; init; }
+        public required string Url { get; init; }
+        public required Guid CourseId { get; init; }
+    }
+}

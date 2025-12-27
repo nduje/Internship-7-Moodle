@@ -12,30 +12,30 @@ namespace Moodle.Domain.Entities.Materials
         public const int UrlMaxLength = 512;
 
         // Primary Key
-        public required int Id { get; set; }
+        public Guid Id { get; init; } = Guid.NewGuid();
 
         // Attributes
         public required string Name { get; set; }
         public required string Url { get; set; }
 
         // Foreign Keys
-        public required int CourseId { get; set; }
+        public required Guid CourseId { get; set; }
 
         // Navigation Properties
         public required Course Course { get; set; }
 
-        public async Task<Result<int?>> Create(IMaterialRepository materialRepository)
+        public async Task<Result<Guid?>> Create(IMaterialRepository materialRepository)
         {
             var validationResult = await CreateOrUpdateValidation();
 
             if (validationResult.HasError)
             {
-                return new Result<int?>(null, validationResult);
+                return new Result<Guid?>(null, validationResult);
             }
 
             await materialRepository.InsertAsync(this);
 
-            return new Result<int?>(Id, validationResult);
+            return new Result<Guid?>(Id, validationResult);
         }
 
         public async Task<ValidationResult> CreateOrUpdateValidation()

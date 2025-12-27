@@ -5,6 +5,7 @@ namespace Moodle.Domain.Persistence.Materials
 {
     public interface IMaterialRepository : IRepository<Material, int>
     {
-        Task<Material?> GetById(int id);
+        Task<Material?> GetById(Guid id);
+        Task<Material?> GetByName(string name, Guid course_id);
     }
 }
