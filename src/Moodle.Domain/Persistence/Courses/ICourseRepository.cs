@@ -7,5 +7,6 @@ namespace Moodle.Domain.Persistence.Courses
     {
         Task<Course?> GetById(Guid id);
         Task<Course?> GetByName(string name);
+        Task<IReadOnlyList<Course>> GetByProfessorId(Guid professor_id);
     }
 }
