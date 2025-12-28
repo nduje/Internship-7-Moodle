@@ -1,6 +1,6 @@
 ﻿namespace Moodle.Application.Courses.DTOs
 {
-    public class GetProfessorCoursesRequest
+    public class GetCoursesByProfessorRequest
     {
         public Guid ProfessorId { get; init; }
     }
