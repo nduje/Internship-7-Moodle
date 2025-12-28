@@ -39,7 +39,7 @@ namespace Moodle.Application.Users.Requests
             return await user.Create(_userRepository);
         }
 
-        Result<Guid?> Fail(ValidationItem item)
+        private Result<Guid?> Fail(ValidationItem item)
         {
             return new Result<Guid?>(null, new ValidationResult().AddValidationItem(item));
         }

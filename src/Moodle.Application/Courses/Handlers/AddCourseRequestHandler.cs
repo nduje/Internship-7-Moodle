@@ -49,7 +49,7 @@ namespace Moodle.Application.Courses.Handlers
             return new Result<AddCourseResponse?>(response, result.ValidationResult);
         }
 
-        Result<AddCourseResponse?> Fail(ValidationItem item)
+        private Result<AddCourseResponse?> Fail(ValidationItem item)
         {
             return new Result<AddCourseResponse?>(null, new ValidationResult().AddValidationItem(item));
         }

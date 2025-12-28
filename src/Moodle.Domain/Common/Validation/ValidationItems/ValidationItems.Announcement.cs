@@ -53,6 +53,14 @@
                 ValidationSeverity = ValidationSeverity.Error,
                 ValidationType = ValidationType.BussinessRule
             };
+
+            public static readonly ValidationItem AnnouncementDuplicate = new ValidationItem()
+            {
+                Code = $"{CodePrefix}7",
+                Message = "Obavijest s ovim imenom već postoji",
+                ValidationSeverity = ValidationSeverity.Error,
+                ValidationType = ValidationType.BussinessRule
+            };
         }
     }
 };

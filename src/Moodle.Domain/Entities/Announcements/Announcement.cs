@@ -12,30 +12,30 @@ namespace Moodle.Domain.Entities.Announcements
         public const int ContentMaxLength = 1024;
 
         // Primary Key
-        public required int Id { get; set; }
+        public Guid Id { get; init; } = Guid.NewGuid();
 
         // Attributes
         public string Title { get; set; } = string.Empty;
         public string Content { get; set; } = string.Empty;
 
         // Foreign Keys
-        public required int CourseId { get; set; }
+        public required Guid CourseId { get; set; }
 
         // Navigation Properties
         public required Course Course { get; set; }
 
-        public async Task<Result<int?>> Create(IAnnouncementRepository announcementRepository)
+        public async Task<Result<Guid?>> Create(IAnnouncementRepository announcementRepository)
         {
             var validationResult = await CreateOrUpdateValidation();
 
             if (validationResult.HasError)
             {
-                return new Result<int?>(null, validationResult);
+                return new Result<Guid?>(null, validationResult);
             }
 
             await announcementRepository.InsertAsync(this);
 
-            return new Result<int?>(Id, validationResult);
+            return new Result<Guid?>(Id, validationResult);
         }
 
         public async Task<ValidationResult> CreateOrUpdateValidation()

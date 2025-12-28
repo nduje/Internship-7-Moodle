@@ -59,7 +59,7 @@ namespace Moodle.Application.Materials.Handlers
             return new Result<AddMaterialResponse?>(response, result.ValidationResult);
         }
 
-        Result<AddMaterialResponse?> Fail(ValidationItem item)
+        private Result<AddMaterialResponse?> Fail(ValidationItem item)
         {
             return new Result<AddMaterialResponse?>(null, new ValidationResult().AddValidationItem(item));
         }
