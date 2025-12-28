@@ -7,5 +7,6 @@ namespace Moodle.Domain.Persistence.Materials
     {
         Task<Material?> GetById(Guid id);
         Task<Material?> GetByName(string name, Guid course_id);
+        Task<IReadOnlyList<Material>> GetByCourseId(Guid course_id);
     }
 }
