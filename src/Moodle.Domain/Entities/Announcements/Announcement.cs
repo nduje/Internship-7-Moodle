@@ -15,8 +15,8 @@ namespace Moodle.Domain.Entities.Announcements
         public Guid Id { get; init; } = Guid.NewGuid();
 
         // Attributes
-        public string Title { get; set; } = string.Empty;
-        public string Content { get; set; } = string.Empty;
+        public required string Title { get; set; } = string.Empty;
+        public required string Content { get; set; } = string.Empty;
 
         // Foreign Keys
         public required Guid CourseId { get; set; }

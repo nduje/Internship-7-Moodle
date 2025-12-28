@@ -7,5 +7,6 @@ namespace Moodle.Domain.Persistence.Announcements
     {
         Task<Announcement?> GetById(int id);
         Task<Announcement?> GetByTitle(string title, Guid course_id);
+        Task<IReadOnlyList<Announcement>> GetByCourseId(Guid course_id);
     }
 }
