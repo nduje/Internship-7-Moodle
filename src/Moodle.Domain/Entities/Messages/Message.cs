@@ -12,10 +12,10 @@ namespace Moodle.Domain.Entities.Messages
         public const int ContentMaxLength = 2048;
 
         // Primary Key
-        public required Guid Id { get; set; } = Guid.NewGuid();
+        public Guid Id { get; set; } = Guid.NewGuid();
 
         // Attributes
-        public string Text { get; set; } = string.Empty;
+        public required string Text { get; init; }
         public DateTime Timestamp { get; init; } = DateTime.Now;
 
         // Foreign Key
@@ -23,8 +23,8 @@ namespace Moodle.Domain.Entities.Messages
         public required Guid UserId { get; set; }
 
         // Navigation Properties
-        public required Conversation Conversation { get; set; }
-        public required User User { get; set; }
+        public Conversation? Conversation { get; set; }
+        public User? User { get; set; }
 
         public async Task<Result<Guid?>> Create(IMessageRepository messageRepository)
         {
@@ -44,11 +44,11 @@ namespace Moodle.Domain.Entities.Messages
         {
             var validationResult = new ValidationResult();
 
-            if (string.IsNullOrWhiteSpace(Content))
-                validationResult.AddValidationItem(ValidationItems.Message.MessageContentRequired);
+            if (string.IsNullOrWhiteSpace(Text))
+                validationResult.AddValidationItem(ValidationItems.Message.MessageTextRequired);
 
-            if (Content.Length > ContentMaxLength)
-                validationResult.AddValidationItem(ValidationItems.Message.MessageContentMaxLength);
+            if (Text.Length > ContentMaxLength)
+                validationResult.AddValidationItem(ValidationItems.Message.MessageTextMaxLength);
 
             if (Conversation == null)
                 validationResult.AddValidationItem(ValidationItems.Message.MessageConversationNotFound);

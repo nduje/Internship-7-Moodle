@@ -14,18 +14,18 @@
                 ValidationType = ValidationType.BussinessRule
             };
 
-            public static readonly ValidationItem MessageContentMaxLength = new ValidationItem()
+            public static readonly ValidationItem MessageTextMaxLength = new ValidationItem()
             {
                 Code = $"{CodePrefix}2",
-                Message = $"Sadržaj poruke ne smije biti duži od {Entities.Messages.Message.ContentMaxLength} znakova",
+                Message = $"Tekst poruke ne smije biti duži od {Entities.Messages.Message.ContentMaxLength} znakova",
                 ValidationSeverity = ValidationSeverity.Error,
                 ValidationType = ValidationType.BussinessRule
             };
 
-            public static readonly ValidationItem MessageContentRequired = new ValidationItem()
+            public static readonly ValidationItem MessageTextRequired = new ValidationItem()
             {
                 Code = $"{CodePrefix}3",
-                Message = "Sadržaj poruke je obavezan",
+                Message = "Tekst poruke je obavezan",
                 ValidationSeverity = ValidationSeverity.Error,
                 ValidationType = ValidationType.BussinessRule
             };
