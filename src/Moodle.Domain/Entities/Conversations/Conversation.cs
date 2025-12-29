@@ -9,28 +9,28 @@ namespace Moodle.Domain.Entities.Conversations
     public class Conversation
     {
         // Primary Key
-        public required int Id { get; set; }
+        public Guid Id { get; init; } = Guid.NewGuid();
 
         // Foreign Keys
-        public required int User1Id { get; set; }
-        public required int User2Id { get; set; }
+        public required Guid User1Id { get; set; }
+        public required Guid User2Id { get; set; }
 
         // Navigation Properties
         public required User User1 { get; set; }
         public required User User2 { get; set; }
 
-        public async Task<Result<int?>> Create(IConversationRepository conversationRepository)
+        public async Task<Result<Guid?>> Create(IConversationRepository conversationRepository)
         {
             var validationResult = await CreateOrUpdateValidation();
 
             if (validationResult.HasError)
             {
-                return new Result<int?>(null, validationResult);
+                return new Result<Guid?>(null, validationResult);
             }
 
             await conversationRepository.InsertAsync(this);
 
-            return new Result<int?>(Id, validationResult);
+            return new Result<Guid?>(Id, validationResult);
         }
 
         public async Task<ValidationResult> CreateOrUpdateValidation()

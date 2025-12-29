@@ -37,6 +37,14 @@
                 ValidationSeverity = ValidationSeverity.Error,
                 ValidationType = ValidationType.BussinessRule
             };
+
+            public static readonly ValidationItem ConversationAlreadyExists = new ValidationItem()
+            {
+                Code = $"{CodePrefix}5",
+                Message = "Razgovor već postoji",
+                ValidationSeverity = ValidationSeverity.Error,
+                ValidationType = ValidationType.BussinessRule
+            };
         }
     }
 };
