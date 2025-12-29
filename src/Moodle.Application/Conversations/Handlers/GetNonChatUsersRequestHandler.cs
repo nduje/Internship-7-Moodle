@@ -6,12 +6,12 @@ using Moodle.Domain.Common.Validation;
 
 namespace Moodle.Application.Conversations.Handlers
 {
-    public class GetChatUsersRequestHandler
+    public class GetNonChatUsersRequestHandler
     {
         private readonly IConversationRepository _conversationRepository;
         private readonly IUserRepository _userRepository;
 
-        public GetChatUsersRequestHandler(IConversationRepository conversationRepository, IUserRepository userRepository)
+        public GetNonChatUsersRequestHandler(IConversationRepository conversationRepository, IUserRepository userRepository)
         {
             _conversationRepository = conversationRepository;
             _userRepository = userRepository;
@@ -21,20 +21,24 @@ namespace Moodle.Application.Conversations.Handlers
         {
             var conversations = await _conversationRepository.GetByUserId(request.UserId);
 
-            var users_ids = conversations
+            var users_with_conversation_ids = conversations
                 .Select(conversation => conversation.User1Id == request.UserId ? conversation.User2Id : conversation.User1Id)
                 .Distinct()
                 .ToList();
 
-            var users = await _userRepository.GetByIds(users_ids);
+            var all_users = await _userRepository.GetAllUsers();
 
-            var response = users.Select(user => new GetChatUsersResponse
-            {
-                Id = user.Id,
-                FirstName = user.FirstName,
-                LastName = user.LastName,
-                Email = user.Email
-            }).ToList();
+            var response = all_users
+                .Where(user => user.Id != request.UserId)
+                .Where(user => !users_with_conversation_ids.Contains(user.Id))
+                .Select(user => new GetChatUsersResponse
+                    {
+                        Id = user.Id,
+                        FirstName = user.FirstName,
+                        LastName = user.LastName,
+                        Email = user.Email
+                    })
+                .ToList();
 
             return new Result<IReadOnlyList<GetChatUsersResponse>>(response, new ValidationResult());
         }
