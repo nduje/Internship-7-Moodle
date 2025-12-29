@@ -85,5 +85,22 @@ namespace Moodle.Domain.Entities.Users
 
             return validationResult;
         }
+
+        public void ChangeEmail(string email, ValidationResult validationResult)
+        {
+            Email = email;
+
+            if (string.IsNullOrWhiteSpace(Email))
+                validationResult.AddValidationItem(ValidationItems.User.EmailRequired);
+
+            if (Email.Length > EmailMaxLength)
+                validationResult.AddValidationItem(ValidationItems.User.EmailMaxLength);
+
+            if (!string.IsNullOrWhiteSpace(Email) && !EmailRegex.IsMatch(Email))
+                validationResult.AddValidationItem(ValidationItems.User.EmailInvalidFormat);
+
+            if (Role != UserRole.Student && Role != UserRole.Professor)
+                validationResult.AddValidationItem(ValidationItems.User.InvalidRoleForEmailChange);
+        }
     }
 }

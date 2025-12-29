@@ -133,6 +133,14 @@
                 ValidationSeverity = ValidationSeverity.Error,
                 ValidationType = ValidationType.BussinessRule
             };
+
+            public static readonly ValidationItem InvalidRoleForEmailChange = new ValidationItem()
+            {
+                Code = $"{CodePrefix}17",
+                Message = "Email adresa se može promijeniti samo studentima i profesorima",
+                ValidationSeverity = ValidationSeverity.Error,
+                ValidationType = ValidationType.BussinessRule
+            };
         }
     }
 }
