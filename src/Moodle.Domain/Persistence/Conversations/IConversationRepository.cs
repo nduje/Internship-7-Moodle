@@ -7,5 +7,6 @@ namespace Moodle.Domain.Persistence.Conversations
     {
         Task<Conversation?> GetById(int id);
         Task<bool> Exists(Guid user1_id, Guid user2_id);
+        Task<IReadOnlyList<Conversation>> GetByUserId(Guid user_id);
     }
 }

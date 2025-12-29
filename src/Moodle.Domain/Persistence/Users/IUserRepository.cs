@@ -9,5 +9,6 @@ namespace Moodle.Domain.Persistence.Users
         Task<User?> GetById(Guid id);
         Task<User?> GetByEmail(string email);
         Task<IReadOnlyList<User>> GetByRole(UserRole? role);
+        Task<IReadOnlyList<User>> GetByIds(IEnumerable<Guid> ids);
     }
 }
