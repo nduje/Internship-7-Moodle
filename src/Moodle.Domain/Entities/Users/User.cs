@@ -62,6 +62,9 @@ namespace Moodle.Domain.Entities.Users
             if (DateOfBirth > DateOnly.FromDateTime(DateTime.Today))
                 validationResult.AddValidationItem(ValidationItems.User.DateOfBirthInFuture);
 
+            if (Role != UserRole.Student && Role != UserRole.Professor && Role != UserRole.Admin)
+                validationResult.AddValidationItem(ValidationItems.User.InvalidUserRole);
+
             if (string.IsNullOrWhiteSpace(Email))
                 validationResult.AddValidationItem(ValidationItems.User.EmailRequired);
 
@@ -101,6 +104,20 @@ namespace Moodle.Domain.Entities.Users
 
             if (Role != UserRole.Student && Role != UserRole.Professor)
                 validationResult.AddValidationItem(ValidationItems.User.InvalidRoleForEmailChange);
+        }
+
+        public void ChangeRole(UserRole role, ValidationResult validationResult)
+        {
+            if (Role != UserRole.Student && Role != UserRole.Professor)
+                validationResult.AddValidationItem(ValidationItems.User.InvalidUserRole);
+
+            if (role != UserRole.Student && role != UserRole.Professor)
+                validationResult.AddValidationItem(ValidationItems.User.InvalidRoleForRoleChange);
+
+            if (Role == role)
+                validationResult.AddValidationItem(ValidationItems.User.RoleUnchanged);
+
+            Role = role;
         }
     }
 }

@@ -141,6 +141,22 @@
                 ValidationSeverity = ValidationSeverity.Error,
                 ValidationType = ValidationType.BussinessRule
             };
+
+            public static readonly ValidationItem InvalidRoleForRoleChange = new ValidationItem()
+            {
+                Code = $"{CodePrefix}18",
+                Message = "Korisnička uloga se može promijeniti samo studentima i profesorima",
+                ValidationSeverity = ValidationSeverity.Error,
+                ValidationType = ValidationType.BussinessRule
+            };
+
+            public static readonly ValidationItem RoleUnchanged = new ValidationItem()
+            {
+                Code = $"{CodePrefix}18",
+                Message = "Korisnička uloga se ne može promijeniti u istu vrijednost",
+                ValidationSeverity = ValidationSeverity.Error,
+                ValidationType = ValidationType.BussinessRule
+            };
         }
     }
 }
