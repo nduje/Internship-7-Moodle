@@ -63,8 +63,8 @@ namespace Moodle.Application.Conversations.Handlers
             var response = new CreateConversationResponse
             {
                 Id = conversation.Id,
-                UserId1 = user1.Id,
-                UserId2 = user2.Id
+                User1Id = user1.Id,
+                User2Id = user2.Id
             };
 
             return new Result<CreateConversationResponse?>(response, result.ValidationResult);

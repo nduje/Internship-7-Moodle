@@ -5,7 +5,7 @@ namespace Moodle.Domain.Persistence.Conversations
 {
     public interface IConversationRepository : IRepository<Conversation, int>
     {
-        Task<Conversation?> GetById(int id);
+        Task<Conversation?> GetById(Guid id);
         Task<bool> Exists(Guid user1_id, Guid user2_id);
         Task<IReadOnlyList<Conversation>> GetByUserId(Guid user_id);
     }

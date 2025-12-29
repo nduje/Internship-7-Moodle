@@ -12,31 +12,32 @@ namespace Moodle.Domain.Entities.Messages
         public const int ContentMaxLength = 2048;
 
         // Primary Key
-        public required int Id { get; set; }
+        public required Guid Id { get; set; } = Guid.NewGuid();
 
         // Attributes
-        public string Content { get; set; } = string.Empty;
+        public string Text { get; set; } = string.Empty;
+        public DateTime Timestamp { get; init; } = DateTime.Now;
 
         // Foreign Key
-        public required int ConversationId { get; set; }
-        public required int UserId { get; set; }
+        public required Guid ConversationId { get; set; }
+        public required Guid UserId { get; set; }
 
         // Navigation Properties
         public required Conversation Conversation { get; set; }
         public required User User { get; set; }
 
-        public async Task<Result<int?>> Create(IMessageRepository messageRepository)
+        public async Task<Result<Guid?>> Create(IMessageRepository messageRepository)
         {
             var validationResult = await CreateOrUpdateValidation();
 
             if (validationResult.HasError)
             {
-                return new Result<int?>(null, validationResult);
+                return new Result<Guid?>(null, validationResult);
             }
 
             await messageRepository.InsertAsync(this);
 
-            return new Result<int?>(Id, validationResult);
+            return new Result<Guid?>(Id, validationResult);
         }
 
         public async Task<ValidationResult> CreateOrUpdateValidation()

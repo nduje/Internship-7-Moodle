@@ -45,6 +45,15 @@
                 ValidationSeverity = ValidationSeverity.Error,
                 ValidationType = ValidationType.BussinessRule
             };
+
+            public static readonly ValidationItem UserNotInConversation = new ValidationItem()
+            {
+                Code = $"{CodePrefix}6",
+                Message = "Korisnik ne pripada razgovoru",
+                ValidationSeverity = ValidationSeverity.Error,
+                ValidationType = ValidationType.BussinessRule
+            };
+
         }
     }
 };

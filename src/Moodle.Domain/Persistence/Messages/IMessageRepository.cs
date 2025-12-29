@@ -5,6 +5,7 @@ namespace Moodle.Domain.Persistence.Messages
 {
     public interface IMessageRepository : IRepository<Message, int>
     {
-        Task<Message?> GetById(int id);
+        Task<Message?> GetById(Guid id);
+        Task<IReadOnlyList<Message>> GetByConversationId(Guid conversation_id);
     }
 }
