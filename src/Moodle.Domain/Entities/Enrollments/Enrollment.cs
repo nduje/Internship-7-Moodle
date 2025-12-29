@@ -10,31 +10,31 @@ namespace Moodle.Domain.Entities.Enrollments
     public class Enrollment
     {
         // Primary Key
-        public required int Id { get; set; }
+        public required Guid Id { get; set; }
 
         // Attributes
         public DateTime EnrolledAt { get; set; } = DateTime.Now;
 
         // Foreign Keys
-        public required int StudentId { get; set; }
-        public required int CourseId { get; set; }
+        public required Guid StudentId { get; set; }
+        public required Guid CourseId { get; set; }
 
         // Navigation Properties
         public required User Student { get; set; }
         public required Course Course { get; set; }
 
-        public async Task<Result<int?>> Create(IEnrollmentRepository enrollmentRepository)
+        public async Task<Result<Guid?>> Create(IEnrollmentRepository enrollmentRepository)
         {
             var validationResult = await CreateOrUpdateValidation();
 
             if (validationResult.HasError)
             {
-                return new Result<int?>(null, validationResult);
+                return new Result<Guid?>(null, validationResult);
             }
 
             await enrollmentRepository.InsertAsync(this);
 
-            return new Result<int?>(Id, validationResult);
+            return new Result<Guid?>(Id, validationResult);
         }
 
         public async Task<ValidationResult> CreateOrUpdateValidation()
