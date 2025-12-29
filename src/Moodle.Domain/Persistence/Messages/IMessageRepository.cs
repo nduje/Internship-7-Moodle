@@ -7,5 +7,6 @@ namespace Moodle.Domain.Persistence.Messages
     {
         Task<Message?> GetById(Guid id);
         Task<IReadOnlyList<Message>> GetByConversationId(Guid conversation_id);
+        Task DeleteByUserId(Guid user_id);
     }
 }

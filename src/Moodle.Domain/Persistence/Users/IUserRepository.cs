@@ -11,5 +11,6 @@ namespace Moodle.Domain.Persistence.Users
         Task<IReadOnlyList<User>> GetByRole(UserRole? role);
         Task<IReadOnlyList<User>> GetByIds(IEnumerable<Guid> ids);
         Task<IReadOnlyList<User>> GetAllUsers();
+        Task DeleteById(Guid id);
     }
 }

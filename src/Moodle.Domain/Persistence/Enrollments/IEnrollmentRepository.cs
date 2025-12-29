@@ -11,5 +11,6 @@ namespace Moodle.Domain.Persistence.Enrollments
         Task<bool> Exists(Guid student_id, Guid course_id);
         Task<IReadOnlyList<Course>> GetCoursesByStudentId(Guid student_id);
         Task<IReadOnlyList<User>> GetStudentsByCourseId(Guid course_id);
+        Task DeleteByStudentId(Guid student_id);
     }
 }
