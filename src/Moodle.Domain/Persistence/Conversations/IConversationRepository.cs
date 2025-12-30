@@ -3,7 +3,7 @@ using Moodle.Domain.Entities.Conversations;
 
 namespace Moodle.Domain.Persistence.Conversations
 {
-    public interface IConversationRepository : IRepository<Conversation, int>
+    public interface IConversationRepository : IRepository<Conversation, Guid>
     {
         Task<Conversation?> GetById(Guid id);
         Task<bool> Exists(Guid user1_id, Guid user2_id);

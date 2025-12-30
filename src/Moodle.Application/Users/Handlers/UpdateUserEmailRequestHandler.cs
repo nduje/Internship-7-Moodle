@@ -38,7 +38,7 @@ namespace Moodle.Application.Users.Handlers
                 return new Result<UpdateUserEmailResponse?>(null, validationResult);
             }
 
-            await _userRepository.UpdateAsync(user);
+            await _userRepository.Update(user);
 
             var response = new UpdateUserEmailResponse
             {

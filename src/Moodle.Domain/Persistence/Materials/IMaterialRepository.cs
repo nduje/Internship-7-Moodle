@@ -3,7 +3,7 @@ using Moodle.Domain.Entities.Materials;
 
 namespace Moodle.Domain.Persistence.Materials
 {
-    public interface IMaterialRepository : IRepository<Material, int>
+    public interface IMaterialRepository : IRepository<Material, Guid>
     {
         Task<Material?> GetById(Guid id);
         Task<Material?> GetByName(string name, Guid course_id);

@@ -3,7 +3,7 @@ using Moodle.Domain.Entities.Courses;
 
 namespace Moodle.Domain.Persistence.Courses
 {
-    public interface ICourseRepository : IRepository<Course, int>
+    public interface ICourseRepository : IRepository<Course, Guid>
     {
         Task<Course?> GetById(Guid id);
         Task<Course?> GetByName(string name);

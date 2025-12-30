@@ -6,7 +6,7 @@ namespace Moodle.Domain.Persistence.Common
     {
         Task<GetAllResponse<TEntity>> Get();
         Task InsertAsync(TEntity entity);
-        Task UpdateAsync(TEntity entity);
-        Task DeleteAsync(TEntity entity);
+        void Update(TEntity entity);
+        Task DeleteAsync(TId id);
     }
 }
