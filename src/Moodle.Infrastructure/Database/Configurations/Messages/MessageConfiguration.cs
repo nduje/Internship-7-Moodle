@@ -21,6 +21,7 @@ namespace Moodle.Infrastructure.Database.Configurations.Messages
 
             builder.Property(m => m.Text)
                 .HasColumnName("text")
+                .HasMaxLength(Message.TextMaxLength)
                 .IsRequired();
 
             builder.Property(m => m.Timestamp)
