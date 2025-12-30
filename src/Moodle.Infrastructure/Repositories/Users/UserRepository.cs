@@ -28,21 +28,21 @@ namespace Moodle.Infrastructure.Repositories.Users
                 .FirstOrDefaultAsync(u => u.Email == email);
         }
 
-        public async Task<IReadOnlyList<User>> GetByRole(UserRole role)
+        public async Task<IReadOnlyList<User>> GetByRole(UserRole? role)
         {
             return await _dbContext.Users
                 .Where(u => u.Role == role)
                 .ToListAsync();
         }
 
-        public async Task<IReadOnlyCollection<User>> GetByIds(IEnumerable<Guid> ids)
+        public async Task<IReadOnlyList<User>> GetByIds(IEnumerable<Guid> ids)
         {
             return await _dbContext.Users
                 .Where(u => ids.Contains(u.Id))
                 .ToListAsync();
         }
 
-        public async Task<IReadOnlyCollection<User>> GetAllUsers()
+        public async Task<IReadOnlyList<User>> GetAllUsers()
         {
             return await _dbContext.Users.ToListAsync();
         }
