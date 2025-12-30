@@ -22,7 +22,8 @@ namespace Moodle.Application.Materials.Handlers
             {
                 Id = material.Id,
                 Name = material.Name,
-                Url = material.Url
+                Url = material.Url,
+                CreatedAt = material.CreatedAt
             }).ToList();
 
             return new Result<IReadOnlyList<GetMaterialsByCourseResponse>>(response, new ValidationResult());

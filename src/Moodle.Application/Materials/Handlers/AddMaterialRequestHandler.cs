@@ -53,7 +53,8 @@ namespace Moodle.Application.Materials.Handlers
                 Id = material.Id,
                 Name = material.Name,
                 Url = material.Url,
-                CourseId = material.CourseId,
+                CreatedAt = material.CreatedAt,
+                CourseId = material.CourseId
             };
 
             return new Result<AddMaterialResponse?>(response, result.ValidationResult);

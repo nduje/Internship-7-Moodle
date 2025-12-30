@@ -18,6 +18,8 @@ namespace Moodle.Domain.Entities.Materials
         public required string Name { get; set; }
         public required string Url { get; set; }
 
+        public DateTime CreatedAt { get; init; } = DateTime.Now;
+
         // Foreign Keys
         public required Guid CourseId { get; set; }
 

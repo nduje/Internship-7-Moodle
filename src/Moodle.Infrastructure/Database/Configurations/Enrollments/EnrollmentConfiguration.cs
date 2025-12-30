@@ -28,8 +28,7 @@ namespace Moodle.Infrastructure.Database.Configurations.Enrollments
                 .IsRequired();
 
             builder.Property(e => e.EnrolledAt)
-                .HasColumnName("enrolled_at")
-                .IsRequired();
+                .HasColumnName("enrolled_at");
 
             // Indexes & Constraints
             builder.HasIndex(e => new { e.StudentId, e.CourseId })
