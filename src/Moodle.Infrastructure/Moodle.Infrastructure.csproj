@@ -11,21 +11,21 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Database\Configurations\Courses\" />
-    <Folder Include="Database\Configurations\Enrollments\" />
-    <Folder Include="Database\Configurations\Materials\" />
-    <Folder Include="Database\Configurations\Announcements\" />
-    <Folder Include="Database\Configurations\Conversations\" />
-    <Folder Include="Database\Configurations\Messages\" />
-  </ItemGroup>
-
-  <ItemGroup>
     <PackageReference Include="Microsoft.EntityFrameworkCore" Version="8.0.22" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="8.0.22">
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
     <PackageReference Include="Microsoft.EntityFrameworkCore.Relational" Version="8.0.22" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Repositories\Courses\" />
+    <Folder Include="Repositories\Enrollments\" />
+    <Folder Include="Repositories\Materials\" />
+    <Folder Include="Repositories\Announcements\" />
+    <Folder Include="Repositories\Conversations\" />
+    <Folder Include="Repositories\Messages\" />
   </ItemGroup>
 
 </Project>
