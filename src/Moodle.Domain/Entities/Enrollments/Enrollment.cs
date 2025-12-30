@@ -10,10 +10,10 @@ namespace Moodle.Domain.Entities.Enrollments
     public class Enrollment
     {
         // Primary Key
-        public required Guid Id { get; set; }
+        public Guid Id { get; init; } = Guid.NewGuid();
 
         // Attributes
-        public DateTime EnrolledAt { get; set; } = DateTime.Now;
+        public DateTime EnrolledAt { get; init; } = DateTime.Now;
 
         // Foreign Keys
         public required Guid StudentId { get; set; }
