@@ -110,7 +110,7 @@
                 ValidationType = ValidationType.BussinessRule
             };
 
-            public static readonly ValidationItem DateOfBirthInFuture = new ValidationItem()
+            public static readonly ValidationItem BirthDateInFuture = new ValidationItem()
             {
                 Code = $"{CodePrefix}14",
                 Message = "Datum rođenja ne može biti u budućnosti",

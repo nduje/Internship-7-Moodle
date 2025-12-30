@@ -30,7 +30,7 @@ namespace Moodle.Application.Users.Requests
             {
                 FirstName = request.FirstName,
                 LastName = request.LastName,
-                DateOfBirth = request.DateOfBirth,
+                BirthDate = request.BirthDate,
                 Email = request.Email,
                 Password = request.Password,
                 Role = UserRole.Student

@@ -2,7 +2,6 @@
 using Moodle.Domain.Common.Model;
 using Moodle.Domain.Common.Validation;
 using Moodle.Domain.Common.Validation.ValidationItems;
-using Moodle.Domain.Entities.Users;
 using Moodle.Domain.Enumerations.Users;
 using Moodle.Domain.Persistence.Conversations;
 using Moodle.Domain.Persistence.Courses;
