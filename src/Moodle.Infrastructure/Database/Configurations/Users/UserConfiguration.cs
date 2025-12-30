@@ -8,43 +8,49 @@ namespace Moodle.Infrastructure.Database.Configurations.Users
     {
         public void Configure(EntityTypeBuilder<User> builder)
         {
+            // Table
             builder.ToTable("users");
 
+            // Key
             builder.HasKey(u => u.Id);
-            builder.Property(x => x.Id)
+
+            // Properties
+            builder.Property(u => u.Id)
                 .HasColumnName("id")
                 .ValueGeneratedNever();
 
-            builder.Property(x => x.FirstName)
+            builder.Property(u => u.FirstName)
                 .HasColumnName("first_name")
                 .HasMaxLength(User.NameMaxLength)
                 .IsRequired();
 
-            builder.Property(x => x.LastName)
+            builder.Property(u => u.LastName)
                 .HasColumnName("last_name")
                 .HasMaxLength(User.NameMaxLength)
                 .IsRequired();
 
-            builder.Property(x => x.BirthDate)
+            builder.Property(u => u.BirthDate)
                 .HasColumnName("birth_date")
                 .HasColumnType("date");
 
-            builder.HasIndex(u => u.Email)
-                .IsUnique();
-            builder.Property(x => x.Email)
+            builder.Property(u => u.Email)
                 .HasColumnName("email")
                 .HasMaxLength(User.EmailMaxLength)
                 .IsRequired();
 
-            builder.Property(x => x.Password)
+            builder.Property(u => u.Password)
                 .HasColumnName("password")
                 .HasMaxLength(User.PasswordMaxLength)
                 .IsRequired();
 
-            builder.Property(x => x.Role)
+            builder.Property(u => u.Role)
                 .HasColumnName("role")
                 .HasConversion<string>()
                 .IsRequired();
+
+            // Indexes & Constraints
+            builder.HasIndex(u => u.Email)
+                .IsUnique();
         }
     }
 }
