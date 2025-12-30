@@ -53,6 +53,7 @@ namespace Moodle.Application.Announcements.Handlers
                 Id = announcement.Id,
                 Title = announcement.Title,
                 Content = announcement.Content,
+                CreatedAt = announcement.CreatedAt,
                 CourseId = announcement.CourseId
             };
 

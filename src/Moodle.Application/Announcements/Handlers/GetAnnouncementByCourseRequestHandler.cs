@@ -22,7 +22,8 @@ namespace Moodle.Application.Announcements.Handlers
             {
                 Id = announcement.Id,
                 Title = announcement.Title,
-                Content = announcement.Content
+                Content = announcement.Content,
+                CreatedAt = announcement.CreatedAt
             }).ToList();
 
             return new Result<IReadOnlyList<GetAnnouncementsByCourseResponse>>(response, new ValidationResult());
