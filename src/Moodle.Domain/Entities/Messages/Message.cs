@@ -9,7 +9,7 @@ namespace Moodle.Domain.Entities.Messages
 {
     public class Message
     {
-        public const int ContentMaxLength = 2048;
+        public const int TextMaxLength = 2048;
 
         // Primary Key
         public Guid Id { get; set; } = Guid.NewGuid();
@@ -47,7 +47,7 @@ namespace Moodle.Domain.Entities.Messages
             if (string.IsNullOrWhiteSpace(Text))
                 validationResult.AddValidationItem(ValidationItems.Message.MessageTextRequired);
 
-            if (Text.Length > ContentMaxLength)
+            if (Text.Length > TextMaxLength)
                 validationResult.AddValidationItem(ValidationItems.Message.MessageTextMaxLength);
 
             if (Conversation == null)

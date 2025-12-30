@@ -17,7 +17,7 @@
             public static readonly ValidationItem MessageTextMaxLength = new ValidationItem()
             {
                 Code = $"{CodePrefix}2",
-                Message = $"Tekst poruke ne smije biti duži od {Entities.Messages.Message.ContentMaxLength} znakova",
+                Message = $"Tekst poruke ne smije biti duži od {Entities.Messages.Message.TextMaxLength} znakova",
                 ValidationSeverity = ValidationSeverity.Error,
                 ValidationType = ValidationType.BussinessRule
             };
