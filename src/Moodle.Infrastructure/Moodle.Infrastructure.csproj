@@ -23,7 +23,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Repositories\Courses\" />
     <Folder Include="Repositories\Enrollments\" />
     <Folder Include="Repositories\Materials\" />
     <Folder Include="Repositories\Announcements\" />
