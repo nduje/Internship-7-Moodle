@@ -33,7 +33,7 @@ namespace Moodle.Application.Users.Handlers
                 return new Result<ChangeUserRoleResponse?>(null, validationResult);
             }
 
-            await _userRepository.Update(user);
+            _userRepository.Update(user);
 
             var response = new ChangeUserRoleResponse
             {

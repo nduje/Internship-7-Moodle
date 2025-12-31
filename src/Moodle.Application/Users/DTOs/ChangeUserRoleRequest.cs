@@ -4,7 +4,13 @@ namespace Moodle.Application.Users.DTOs
 {
     public class ChangeUserRoleRequest
     {
-        public required Guid Id { get; init; }
-        public required UserRole Role { get; init; }
+        public Guid Id { get; init; }
+        public UserRole Role { get; init; }
+
+        public ChangeUserRoleRequest(Guid id, UserRole role)
+        {
+            Id = id;
+            Role = role;
+        }
     }
 }

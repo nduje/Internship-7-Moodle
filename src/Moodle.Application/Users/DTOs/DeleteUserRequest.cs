@@ -2,6 +2,11 @@
 {
     public class DeleteUserRequest
     {
-        public required Guid Id { get; init; }
+        public Guid Id { get; init; }
+
+        public DeleteUserRequest(Guid id)
+        {
+            Id = id;
+        }
     }
 }

@@ -15,7 +15,7 @@ namespace Moodle.Application.Users.Requests
             _userRepository = userRepository;
         }
 
-        public async Task<Result<Guid>> Login(LoginUserRequest request)
+        public async Task<Result<Guid?>> Login(LoginUserRequest request)
         {
             var validationResult = new ValidationResult();
 
@@ -23,19 +23,20 @@ namespace Moodle.Application.Users.Requests
 
             if (user == null)
             {
-                validationResult.AddValidationItem(ValidationItems.User.UserNotFound);
-
-                return new Result<Guid>(Guid.Empty, validationResult);
+                return Fail(ValidationItems.User.UserNotFound);
             }
 
             if (user.Password != request.Password)
             {
-                validationResult.AddValidationItem(ValidationItems.User.InvalidCredentials);
-
-                return new Result<Guid>(Guid.Empty, validationResult);
+                return Fail(ValidationItems.User.InvalidCredentials);
             }
 
-            return new Result<Guid>(user.Id, validationResult);
+            return new Result<Guid?>(user.Id, validationResult);
+        }
+
+        private Result<Guid?> Fail(ValidationItem item)
+        {
+            return new Result<Guid?>(Guid.Empty, new ValidationResult().AddValidationItem(item));
         }
     }
 }

@@ -5,5 +5,10 @@ namespace Moodle.Application.Users.DTOs
     public class GetUsersRequest
     {
         public UserRole? Role { get; init; }
+
+        public GetUsersRequest(UserRole? role)
+        {
+            Role = role;
+        }
     }
 }

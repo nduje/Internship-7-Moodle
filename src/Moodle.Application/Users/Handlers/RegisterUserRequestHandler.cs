@@ -17,7 +17,7 @@ namespace Moodle.Application.Users.Requests
             _userRepository = userRepository;
         }
 
-        public async Task<Result<Guid?>> RegisterUser(RegisterUserRequest request)
+        public async Task<Result<Guid?>> Register(RegisterUserRequest request)
         {
             var validationResult = new ValidationResult();
 
@@ -41,7 +41,7 @@ namespace Moodle.Application.Users.Requests
 
         private Result<Guid?> Fail(ValidationItem item)
         {
-            return new Result<Guid?>(null, new ValidationResult().AddValidationItem(item));
+            return new Result<Guid?>(Guid.Empty, new ValidationResult().AddValidationItem(item));
         }
     }
 }
