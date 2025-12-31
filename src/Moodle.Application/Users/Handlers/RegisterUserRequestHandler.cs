@@ -6,7 +6,7 @@ using Moodle.Domain.Entities.Users;
 using Moodle.Domain.Enumerations.Users;
 using Moodle.Domain.Persistence.Users;
 
-namespace Moodle.Application.Users.Requests
+namespace Moodle.Application.Users.Handlers
 {
     public class RegisterUserRequestHandler
     {

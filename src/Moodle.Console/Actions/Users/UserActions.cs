@@ -1,8 +1,6 @@
 ﻿using Moodle.Application.Users.DTOs;
 using Moodle.Application.Users.Handlers;
-using Moodle.Application.Users.Requests;
 using Moodle.Domain.Enumerations.Users;
-using System.Security.Cryptography.X509Certificates;
 
 
 namespace Moodle.Console.Actions.Users

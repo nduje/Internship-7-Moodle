@@ -4,7 +4,7 @@ using Moodle.Domain.Persistence.Users;
 using Moodle.Domain.Common.Validation;
 using Moodle.Domain.Common.Validation.ValidationItems;
 
-namespace Moodle.Application.Users.Requests
+namespace Moodle.Application.Users.Handlers
 {
     public class LoginUserRequestHandler
     {
