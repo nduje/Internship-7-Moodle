@@ -39,6 +39,9 @@ namespace Moodle.Infrastructure.Database.Configurations.Materials
             // Indexes & Constraints
             builder.HasIndex(m => m.CourseId);
 
+            builder.HasIndex(m => new { m.Name, m.CourseId })
+                .IsUnique();
+
             // Relationships
             builder.HasOne(m => m.Course)
                 .WithMany()
