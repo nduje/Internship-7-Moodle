@@ -27,8 +27,11 @@ namespace Moodle.Application.Conversations.Handlers
                 return Fail(ValidationItems.Conversation.ConversationSameUsers);
             }
 
-            var user1 = await _userRepository.GetById(request.User1Id);
-            var user2 = await _userRepository.GetById(request.User2Id);
+            var user1_id = request.User1Id.CompareTo(request.User2Id) < 0 ? request.User1Id : request.User2Id;
+            var user2_id = request.User1Id.CompareTo(request.User2Id) < 0 ? request.User2Id : request.User1Id;
+
+            var user1 = await _userRepository.GetById(user1_id);
+            var user2 = await _userRepository.GetById(user2_id);
 
             if (user1 == null)
             {
@@ -44,9 +47,6 @@ namespace Moodle.Application.Conversations.Handlers
             {
                 return Fail(ValidationItems.Conversation.ConversationAlreadyExists);
             }
-
-            var user1_id = request.User1Id.CompareTo(request.User2Id) < 0 ? request.User1Id : request.User2Id;
-            var user2_id = request.User1Id.CompareTo(request.User2Id) < 0 ? request.User2Id : request.User1Id;
 
             var conversation = new Conversation
             {
