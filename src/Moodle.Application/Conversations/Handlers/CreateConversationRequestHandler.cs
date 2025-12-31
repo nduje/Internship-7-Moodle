@@ -45,10 +45,13 @@ namespace Moodle.Application.Conversations.Handlers
                 return Fail(ValidationItems.Conversation.ConversationAlreadyExists);
             }
 
+            var user1_id = request.User1Id.CompareTo(request.User2Id) < 0 ? request.User1Id : request.User2Id;
+            var user2_id = request.User1Id.CompareTo(request.User2Id) < 0 ? request.User2Id : request.User1Id;
+
             var conversation = new Conversation
             {
-                User1Id = request.User1Id,
-                User2Id = request.User2Id,
+                User1Id = user1_id,
+                User2Id = user2_id,
                 User1 = user1,
                 User2 = user2
             };
