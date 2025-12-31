@@ -21,10 +21,10 @@ namespace Moodle.Infrastructure.Repositories.Materials
                 .FirstOrDefaultAsync(m => m.Id == id);
         }
 
-        public async Task<Material?> GetByName(string name)
+        public async Task<Material?> GetByName(string name, Guid course_id)
         {
             return await _dbContext.Materials
-                .FirstOrDefaultAsync(m => m.Name == name);
+                .FirstOrDefaultAsync(m => m.Name == name && m.CourseId == course_id);
         }
 
         public async Task<IReadOnlyList<Material>> GetMaterialsByCourseId(Guid course_id)
