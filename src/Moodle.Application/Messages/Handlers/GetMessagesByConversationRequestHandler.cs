@@ -18,7 +18,7 @@ namespace Moodle.Application.Messages.Handlers
             _conversationRepository = conversationRepository;
         }
 
-        public async Task<Result<IReadOnlyList<GetMessagesByConversationResponse>?> GetMessages(GetMessagesByConversationRequest request)
+        public async Task<Result<IReadOnlyList<GetMessagesByConversationResponse>?>> GetMessages(GetMessagesByConversationRequest request)
         {
             var conversation = await _conversationRepository.GetById(request.ConversationId);
 

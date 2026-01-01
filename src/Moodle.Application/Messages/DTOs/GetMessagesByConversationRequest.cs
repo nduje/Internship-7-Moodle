@@ -2,7 +2,14 @@
 {
     public class GetMessagesByConversationRequest
     {
-        public required Guid ConversationId { get; init; }
-        public required Guid UserId { get; init; }
+        public Guid ConversationId { get; init; }
+        public Guid UserId { get; init; }
+
+        public GetMessagesByConversationRequest(Guid conversation_id, Guid user_id)
+        {
+            ConversationId = conversation_id;
+            UserId = user_id;
+        }
+
     }
 }
