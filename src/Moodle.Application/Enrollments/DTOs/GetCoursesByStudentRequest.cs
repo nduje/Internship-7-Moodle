@@ -2,6 +2,11 @@
 {
     public class GetCoursesByStudentRequest
     {
-        public required Guid StudentId { get; init; }
+        public Guid StudentId { get; init; }
+
+        public GetCoursesByStudentRequest(Guid student_id)
+        {
+            StudentId = student_id;
+        }
     }
 }
