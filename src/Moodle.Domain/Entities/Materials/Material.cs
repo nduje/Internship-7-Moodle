@@ -3,6 +3,7 @@ using Moodle.Domain.Common.Validation;
 using Moodle.Domain.Common.Validation.ValidationItems;
 using Moodle.Domain.Entities.Courses;
 using Moodle.Domain.Persistence.Materials;
+using System.Text.RegularExpressions;
 
 namespace Moodle.Domain.Entities.Materials
 {
@@ -10,6 +11,9 @@ namespace Moodle.Domain.Entities.Materials
     {
         public const int NameMaxLength = 128;
         public const int UrlMaxLength = 512;
+        private static readonly Regex UrlRegex = new Regex(@"^(https?:\/\/)?([a-zA-Z0-9-]+\.)+[a-zA-Z]{2,}(:\d+)?(\/[^\s]*)?$
+");
+
 
         // Primary Key
         public Guid Id { get; init; } = Guid.NewGuid();
@@ -55,6 +59,9 @@ namespace Moodle.Domain.Entities.Materials
 
             if (Url.Length > UrlMaxLength)
                 validationResult.AddValidationItem(ValidationItems.Material.MaterialUrlMaxLength);
+
+            if (!string.IsNullOrWhiteSpace(Url) && !UrlRegex.IsMatch(Url))
+                validationResult.AddValidationItem(ValidationItems.Material.UrlInvalidFormat);
 
             if (Course == null)
                 validationResult.AddValidationItem(ValidationItems.Material.MaterialCourseNotFound);

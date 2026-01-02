@@ -46,9 +46,17 @@
                 ValidationType = ValidationType.BussinessRule
             };
 
-            public static readonly ValidationItem MaterialCourseNotFound = new ValidationItem()
+            public static readonly ValidationItem UrlInvalidFormat = new ValidationItem()
             {
                 Code = $"{CodePrefix}6",
+                Message = $"URL nije ispravnog formata",
+                ValidationSeverity = ValidationSeverity.Error,
+                ValidationType = ValidationType.BussinessRule
+            };
+
+            public static readonly ValidationItem MaterialCourseNotFound = new ValidationItem()
+            {
+                Code = $"{CodePrefix}7",
                 Message = "Kolegij materijala ne postoji",
                 ValidationSeverity = ValidationSeverity.Error,
                 ValidationType = ValidationType.BussinessRule
