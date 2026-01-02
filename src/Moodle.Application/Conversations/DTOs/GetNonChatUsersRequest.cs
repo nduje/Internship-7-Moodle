@@ -2,6 +2,11 @@
 {
     public class GetNonChatUsersRequest
     {
-        public required Guid UserId { get; init; }
+        public Guid UserId { get; init; }
+
+        public GetNonChatUsersRequest(Guid user_id)
+        {
+            UserId = user_id;
+        }
     }
 }

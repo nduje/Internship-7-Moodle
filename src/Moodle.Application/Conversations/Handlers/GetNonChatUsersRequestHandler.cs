@@ -17,7 +17,7 @@ namespace Moodle.Application.Conversations.Handlers
             _userRepository = userRepository;
         }
 
-        public async Task<Result<IReadOnlyList<GetChatUsersResponse>>> GetUsers(GetChatUsersRequest request)
+        public async Task<Result<IReadOnlyList<GetNonChatUsersResponse>>> GetUsers(GetNonChatUsersRequest request)
         {
             var conversations = await _conversationRepository.GetByUserId(request.UserId);
 
@@ -31,7 +31,7 @@ namespace Moodle.Application.Conversations.Handlers
             var response = all_users
                 .Where(user => user.Id != request.UserId)
                 .Where(user => !users_with_conversation_ids.Contains(user.Id))
-                .Select(user => new GetChatUsersResponse
+                .Select(user => new GetNonChatUsersResponse
                     {
                         Id = user.Id,
                         FirstName = user.FirstName,
@@ -40,7 +40,7 @@ namespace Moodle.Application.Conversations.Handlers
                     })
                 .ToList();
 
-            return new Result<IReadOnlyList<GetChatUsersResponse>>(response, new ValidationResult());
+            return new Result<IReadOnlyList<GetNonChatUsersResponse>>(response, new ValidationResult());
         }
     }
 }

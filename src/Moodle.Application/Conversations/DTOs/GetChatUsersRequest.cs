@@ -2,6 +2,11 @@
 {
     public class GetChatUsersRequest
     {
-        public required Guid UserId { get; init; }
+        public Guid UserId { get; init; }
+        
+        public GetChatUsersRequest(Guid user_id)
+        {
+            UserId = user_id;
+        }
     }
 }

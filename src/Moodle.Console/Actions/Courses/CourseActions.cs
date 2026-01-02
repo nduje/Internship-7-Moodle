@@ -8,7 +8,9 @@ namespace Moodle.Console.Actions.Courses
         private readonly AddCourseRequestHandler _addCourseRequestHandler;
         private readonly GetCoursesByProfessorRequestHandler _getCoursesByProfessorRequestHandler;
 
-        public CourseActions(AddCourseRequestHandler addCourseRequestHandler, GetCoursesByProfessorRequestHandler getCoursesByProfessorRequestHandler)
+        public CourseActions(
+            AddCourseRequestHandler addCourseRequestHandler,
+            GetCoursesByProfessorRequestHandler getCoursesByProfessorRequestHandler)
         {
             _addCourseRequestHandler = addCourseRequestHandler;
             _getCoursesByProfessorRequestHandler = getCoursesByProfessorRequestHandler;
