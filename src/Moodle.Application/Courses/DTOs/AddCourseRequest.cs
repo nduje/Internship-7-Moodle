@@ -2,8 +2,15 @@
 {
     public class AddCourseRequest
     {
-        public required string Name { get; init; }
+        public string Name { get; init; }
         public string? Description { get; init; }
         public Guid? ProfessorId { get; init; }
+
+        public AddCourseRequest(string name, string description, Guid professor_id)
+        {
+            Name = name;
+            Description = description;
+            ProfessorId = professor_id;
+        }
     }
 }
