@@ -8,12 +8,12 @@ using Moodle.Domain.Entities.Announcements;
 
 namespace Moodle.Application.Announcements.Handlers
 {
-    public class AddAnnouncemenetRequestHandler
+    public class AddAnnouncementRequestHandler
     {
         private readonly IAnnouncementRepository _announcementRepository;
         private readonly ICourseRepository _courseRepository;
 
-        public AddAnnouncemenetRequestHandler(IAnnouncementRepository announcementRepository, ICourseRepository courseRepository)
+        public AddAnnouncementRequestHandler(IAnnouncementRepository announcementRepository, ICourseRepository courseRepository)
         {
             _announcementRepository = announcementRepository;
             _courseRepository = courseRepository;

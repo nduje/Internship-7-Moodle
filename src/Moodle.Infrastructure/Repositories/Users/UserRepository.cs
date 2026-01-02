@@ -30,6 +30,12 @@ namespace Moodle.Infrastructure.Repositories.Users
 
         public async Task<IReadOnlyList<User>> GetByRole(UserRole? role)
         {
+            if (role == null)
+            {
+                return await _dbContext.Users
+                    .ToListAsync();
+            }
+
             return await _dbContext.Users
                 .Where(u => u.Role == role)
                 .ToListAsync();

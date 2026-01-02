@@ -53,7 +53,7 @@ builder.Services.AddScoped<GetStudentsByCourseRequestHandler>();
 builder.Services.AddScoped<AddMaterialRequestHandler>();
 builder.Services.AddScoped<GetMaterialsByCourseRequestHandler>();
 
-builder.Services.AddScoped<AddAnnouncemenetRequestHandler>();
+builder.Services.AddScoped<AddAnnouncementRequestHandler>();
 builder.Services.AddScoped<GetAnnouncementByCourseRequestHandler>();
 
 builder.Services.AddScoped<CreateConversationRequestHandler>();
