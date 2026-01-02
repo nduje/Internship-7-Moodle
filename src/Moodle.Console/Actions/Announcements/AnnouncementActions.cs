@@ -5,10 +5,10 @@ namespace Moodle.Console.Actions.Announcements
 {
     public class AnnouncementActions
     {
-        private readonly AddAnnouncemenetRequestHandler _addAnnouncemenetRequestHandler;
+        private readonly AddAnnouncementRequestHandler _addAnnouncemenetRequestHandler;
         private readonly GetAnnouncementByCourseRequestHandler _getAnnouncementByCourseRequestHandler;
 
-        public AnnouncementActions(AddAnnouncemenetRequestHandler addAnnouncemenetRequestHandler, GetAnnouncementByCourseRequestHandler getAnnouncementByCourseRequestHandler)
+        public AnnouncementActions(AddAnnouncementRequestHandler addAnnouncemenetRequestHandler, GetAnnouncementByCourseRequestHandler getAnnouncementByCourseRequestHandler)
         {
             _addAnnouncemenetRequestHandler = addAnnouncemenetRequestHandler;
             _getAnnouncementByCourseRequestHandler = getAnnouncementByCourseRequestHandler;

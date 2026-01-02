@@ -11,8 +11,7 @@ namespace Moodle.Domain.Entities.Materials
     {
         public const int NameMaxLength = 128;
         public const int UrlMaxLength = 512;
-        private static readonly Regex UrlRegex = new Regex(@"^(https?:\/\/)?([a-zA-Z0-9-]+\.)+[a-zA-Z]{2,}(:\d+)?(\/[^\s]*)?$
-");
+        private static readonly Regex UrlRegex = new Regex(@"^(https?:\/\/)?([a-zA-Z0-9-]+\.)+[a-zA-Z]{2,}(:\d+)?(\/[^\s]*)?$");
 
 
         // Primary Key
