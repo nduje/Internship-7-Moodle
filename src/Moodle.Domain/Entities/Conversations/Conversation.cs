@@ -16,8 +16,8 @@ namespace Moodle.Domain.Entities.Conversations
         public required Guid User2Id { get; set; }
 
         // Navigation Properties
-        public required User User1 { get; set; }
-        public required User User2 { get; set; }
+        public User? User1 { get; set; }
+        public User? User2 { get; set; }
 
         public async Task<Result<Guid?>> Create(IConversationRepository conversationRepository)
         {

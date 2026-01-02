@@ -20,8 +20,8 @@ namespace Moodle.Domain.Entities.Enrollments
         public required Guid CourseId { get; set; }
 
         // Navigation Properties
-        public required User Student { get; set; }
-        public required Course Course { get; set; }
+        public User? Student { get; set; }
+        public Course? Course { get; set; }
 
         public async Task<Result<Guid?>> Create(IEnrollmentRepository enrollmentRepository)
         {

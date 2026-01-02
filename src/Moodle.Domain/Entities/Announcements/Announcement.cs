@@ -24,7 +24,7 @@ namespace Moodle.Domain.Entities.Announcements
         public required Guid CourseId { get; set; }
 
         // Navigation Properties
-        public required Course Course { get; set; }
+        public Course? Course { get; set; }
 
         public async Task<Result<Guid?>> Create(IAnnouncementRepository announcementRepository)
         {
