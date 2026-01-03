@@ -56,6 +56,7 @@ namespace Moodle.Application.Users.Handlers
             }
 
             await _userRepository.DeleteAsync(user.Id);
+            await _userRepository.SaveAsync();
 
             var response = new DeleteUserResponse
             {

@@ -50,7 +50,7 @@
         public static Dictionary<string, (string Description, Func<Task<bool>> Action)> CreateAdminMenuOptions(MenuManager menuManager)
         {
             return new MenuOptions()
-                .AddOption("1", "Manage Users", async () => { await menuManager.Placeholder(); System.Console.Clear(); return false; })
+                .AddOption("1", "Manage Users", async () => { await menuManager.ManageUsersMenuAsync(); System.Console.Clear(); return false; })
                 .AddOption("2", "Private Chat", async () => { await menuManager.PrivateChatMenuAsync(); System.Console.Clear(); return false; })
                 .AddOption("3", "Logout", async () => { System.Console.WriteLine("Exiting application..."); return await Task.FromResult(true); })
                 .Build();
@@ -78,9 +78,9 @@
         public static Dictionary<string, (string Description, Func<Task<bool>> Action)> CreateProfessorManageCourseMenuOptions(MenuManager menuManager)
         {
             return new MenuOptions()
-                .AddOption("1", "Enroll Student", async () => { await menuManager.HandleEnrollStudent(); System.Console.Clear(); return false; })
-                .AddOption("2", "Publish Announcement", async () => { await menuManager.HandlePublishAnnouncement(); System.Console.Clear(); return false; })
-                .AddOption("3", "Add Material", async () => { await menuManager.HandleAddMaterial(); System.Console.Clear(); return false; })
+                .AddOption("1", "Enroll Student", async () => { await menuManager.HandleEnrollStudentAsync(); System.Console.Clear(); return false; })
+                .AddOption("2", "Publish Announcement", async () => { await menuManager.HandlePublishAnnouncementAsync(); System.Console.Clear(); return false; })
+                .AddOption("3", "Add Material", async () => { await menuManager.HandleAddMaterialAsync(); System.Console.Clear(); return false; })
                 .AddOption("4", "Go Back", async () => { System.Console.WriteLine("Exiting application..."); return await Task.FromResult(true); })
                 .Build();
         }
@@ -90,6 +90,43 @@
             return new MenuOptions()
                 .AddOption("1", "New Message", async () => { await menuManager.ShowNewChatsAsync(); System.Console.Clear(); return false; })
                 .AddOption("2", "My Conversations", async () => { await menuManager.ShowChatsAsync(); System.Console.Clear(); return false; })
+                .AddOption("3", "Go Back", async () => { System.Console.WriteLine("Exiting application..."); return await Task.FromResult(true); })
+                .Build();
+        }
+
+        public static Dictionary<string, (string Description, Func<Task<bool>> Action)> CreateManageUsersMenuOptions(MenuManager menuManager)
+        {
+            return new MenuOptions()
+                .AddOption("1", "Delete Users", async () => { await menuManager.DeleteUsersMenuAsync(); System.Console.Clear(); return false; })
+                .AddOption("2", "Update Email", async () => { await menuManager.Placeholder(); System.Console.Clear(); return false; })
+                .AddOption("3", "Change Role", async () => { await menuManager.Placeholder(); System.Console.Clear(); return false; })
+                .AddOption("4", "Go Back", async () => { System.Console.WriteLine("Exiting application..."); return await Task.FromResult(true); })
+                .Build();
+        }
+
+        public static Dictionary<string, (string Description, Func<Task<bool>> Action)> CreateDeleteUsersMenuOptions(MenuManager menuManager)
+        {
+            return new MenuOptions()
+                .AddOption("1", "Delete Student", async () => { await menuManager.DeleteStudentAsync(); System.Console.Clear(); return false; })
+                .AddOption("2", "Delete Professor", async () => { await menuManager.DeleteProfessorAsync(); System.Console.Clear(); return false; })
+                .AddOption("3", "Go Back", async () => { System.Console.WriteLine("Exiting application..."); return await Task.FromResult(true); })
+                .Build();
+        }
+
+        public static Dictionary<string, (string Description, Func<Task<bool>> Action)> CreateUpdateEmailMenuOptions(MenuManager menuManager)
+        {
+            return new MenuOptions()
+                .AddOption("1", "Update Student Email", async () => { await menuManager.Placeholder(); System.Console.Clear(); return false; })
+                .AddOption("2", "Update Professor Email", async () => { await menuManager.Placeholder(); System.Console.Clear(); return false; })
+                .AddOption("3", "Go Back", async () => { System.Console.WriteLine("Exiting application..."); return await Task.FromResult(true); })
+                .Build();
+        }
+
+        public static Dictionary<string, (string Description, Func<Task<bool>> Action)> CreateChangeRoleMenuOptions(MenuManager menuManager)
+        {
+            return new MenuOptions()
+                .AddOption("1", "Change Student Role", async () => { await menuManager.Placeholder(); System.Console.Clear(); return false; })
+                .AddOption("2", "Change Professor Role", async () => { await menuManager.Placeholder(); System.Console.Clear(); return false; })
                 .AddOption("3", "Go Back", async () => { System.Console.WriteLine("Exiting application..."); return await Task.FromResult(true); })
                 .Build();
         }

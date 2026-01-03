@@ -10,8 +10,8 @@ namespace Moodle.Console.Views
         {
             while (true)
             {
-                var email = "sven@moodle.hr";
-                var password = "Professor@123!";
+                var email = "admin@moodle.hr";
+                var password = "Admin@123!";
 
                 return await _userActions.LoginUserAsync(email, password);
             }

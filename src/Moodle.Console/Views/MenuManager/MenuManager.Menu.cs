@@ -55,6 +55,8 @@ namespace Moodle.Console.Views
                     Writer.WriteMessage("Invalid option. Please try again.");
                 }
             }
+
+            _currentUser = null;
         }
 
         public async Task ProfessorMenuAsync()
@@ -80,6 +82,8 @@ namespace Moodle.Console.Views
                     Writer.WriteMessage("Invalid option. Please try again.");
                 }
             }
+
+            _currentUser = null;
         }
 
         public async Task AdminMenuAsync()
@@ -105,6 +109,8 @@ namespace Moodle.Console.Views
                     Writer.WriteMessage("Invalid option. Please try again.");
                 }
             }
+
+            _currentUser = null;
         }
 
         public async Task StudentCourseMenuAsync()
@@ -192,6 +198,106 @@ namespace Moodle.Console.Views
             {
                 System.Console.Clear();
                 Writer.DisplayMenu("Moodle - Private Chat Menu", main_menu_options);
+
+                var choice = Reader.ReadMenuChoice();
+
+                if (main_menu_options.ContainsKey(choice))
+                {
+                    exit_requested = await main_menu_options[choice].Action();
+                }
+
+                else
+                {
+                    Writer.WriteMessage("Invalid option. Please try again.");
+                }
+            }
+        }
+
+        public async Task ManageUsersMenuAsync()
+        {
+            bool exit_requested = false;
+
+            var main_menu_options = MenuOptions.CreateManageUsersMenuOptions(this);
+
+            while (!exit_requested)
+            {
+                System.Console.Clear();
+                Writer.DisplayMenu("Moodle - Manage Users Menu", main_menu_options);
+
+                var choice = Reader.ReadMenuChoice();
+
+                if (main_menu_options.ContainsKey(choice))
+                {
+                    exit_requested = await main_menu_options[choice].Action();
+                }
+
+                else
+                {
+                    Writer.WriteMessage("Invalid option. Please try again.");
+                }
+            }
+        }
+
+        public async Task DeleteUsersMenuAsync()
+        {
+            bool exit_requested = false;
+
+            var main_menu_options = MenuOptions.CreateDeleteUsersMenuOptions(this);
+
+            while (!exit_requested)
+            {
+                System.Console.Clear();
+                Writer.DisplayMenu("Moodle - Delete Users Menu", main_menu_options);
+
+                var choice = Reader.ReadMenuChoice();
+
+                if (main_menu_options.ContainsKey(choice))
+                {
+                    exit_requested = await main_menu_options[choice].Action();
+                }
+
+                else
+                {
+                    Writer.WriteMessage("Invalid option. Please try again.");
+                }
+            }
+        }
+
+        public async Task UpdateEmailMenuAsync()
+        {
+            bool exit_requested = false;
+
+            var main_menu_options = MenuOptions.CreateUpdateEmailMenuOptions(this);
+
+            while (!exit_requested)
+            {
+                System.Console.Clear();
+                Writer.DisplayMenu("Moodle - Update Email Menu", main_menu_options);
+
+                var choice = Reader.ReadMenuChoice();
+
+                if (main_menu_options.ContainsKey(choice))
+                {
+                    exit_requested = await main_menu_options[choice].Action();
+                }
+
+                else
+                {
+                    Writer.WriteMessage("Invalid option. Please try again.");
+                }
+            }
+        }
+
+        public async Task ChangeRoleMenuAsync()
+        {
+            bool exit_requested = false;
+
+            var main_menu_options = MenuOptions.CreateChangeRoleMenuOptions(this);
+
+            while (!exit_requested)
+            {
+                System.Console.Clear();
+                Writer.DisplayMenu("Moodle - Change Role Menu", main_menu_options);
 
                 var choice = Reader.ReadMenuChoice();
 

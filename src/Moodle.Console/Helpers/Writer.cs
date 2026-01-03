@@ -10,25 +10,25 @@ namespace Moodle.Console.Helpers
 {
     public static class Writer
     {
-        public static void WriteStudents(IReadOnlyList<GetUsersResponse> students)
+        public static void WriteUsers(IReadOnlyList<GetUsersResponse> users)
         {
-            var studentList = students.ToList();
+            var userList = users.ToList();
 
-            if (!studentList.Any())
+            if (!userList.Any())
             {
                 System.Console.Clear();
-                WriteMessage("No students found.");
+                WriteMessage("No users found.");
                 WaitForKey();
                 return;
             }
 
-            for (int i = 0; i < students.Count; i++)
+            for (int i = 0; i < users.Count; i++)
             {
-                var student = studentList[i];
+                var user = userList[i];
 
-                System.Console.WriteLine($"{i + 1}: First Name: {student.FirstName}\n" +
-                    $"   Last Name: {student.LastName}\n" +
-                    $"   Email: {student.Email}\n");
+                System.Console.WriteLine($"{i + 1}: First Name: {user.FirstName}\n" +
+                    $"   Last Name: {user.LastName}\n" +
+                    $"   Email: {user.Email}\n");
             }
         }
 
@@ -190,6 +190,7 @@ namespace Moodle.Console.Helpers
                     $"   Role: {user.Role}\n");
             }
         }
+        
         public static void WriteMessages(IReadOnlyList<GetMessagesByConversationResponse> messages)
         {
             var messageList = messages.ToList();
@@ -211,7 +212,6 @@ namespace Moodle.Console.Helpers
                     $"Timestamp: {message.Timestamp}\n");
             }
         }
-
 
         public static void DisplayMenu(string title, Dictionary<string, (string Description, Func<Task<bool>> Action)> options)
         {

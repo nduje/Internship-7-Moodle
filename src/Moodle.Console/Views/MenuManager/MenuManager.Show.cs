@@ -1,5 +1,6 @@
 ﻿using Moodle.Console.Actions.Users;
 using Moodle.Console.Helpers;
+using Moodle.Domain.Enumerations.Users;
 
 namespace Moodle.Console.Views
 {
@@ -171,14 +172,14 @@ namespace Moodle.Console.Views
 
                 _chosenUserId = conversations[choice.Value - 1].Id;
 
-                _currentConversationId = await HandleCreateConversation();
+                _currentConversationId = await HandleCreateConversationAsync();
 
                 if (_currentConversationId == Guid.Empty)
                 {
                     return;
                 }
 
-                await HandleSendMessage();
+                await HandleSendMessageAsync();
                 _currentConversationId = Guid.Empty;
 
                 return;
@@ -222,7 +223,7 @@ namespace Moodle.Console.Views
 
                 _currentConversationId = conversations[choice.Value - 1].ConversationId;
 
-                await HandleOpenChat();
+                await HandleOpenChatAsync();
             }
         }
 
@@ -242,7 +243,7 @@ namespace Moodle.Console.Views
             Writer.WriteMessages(messages);
         }
 
-        public async Task HandleOpenChat()
+        public async Task HandleOpenChatAsync()
         {
             while (true)
             {
@@ -252,13 +253,93 @@ namespace Moodle.Console.Views
                 }
 
                 await ShowMessagesAsync();
-                var exit_required = await HandleSendMessage();
+                var exit_required = await HandleSendMessageAsync();
 
                 if (exit_required)
                 {
                     _currentConversationId = Guid.Empty;
                     return;
                 }
+            }
+        }
+        
+        public async Task<bool> ShowStudentsAsync()
+        {
+            if (_currentUser == null)
+                throw new InvalidOperationException("No user is currently logged in.");
+
+            System.Console.Clear();
+
+            var students = await _userActions.GetUsersAsync(UserRole.Student);
+
+            while (true)
+            {
+                System.Console.Clear();
+                Writer.WriteMessage($"=== Students ===\n");
+                Writer.WriteUsers(students);
+                Writer.WriteMessage("0: Go Back");
+
+                var choice = Reader.ReadInt("\nSelect a student: ");
+
+                if (choice == 0)
+                    return true;
+
+                if (choice < 0 || choice > students.Count)
+                {
+                    Writer.WriteMessage("Invalid selection, try again.");
+                    Writer.WaitForKey();
+                    continue;
+                }
+
+                if (!choice.HasValue)
+                {
+                    Writer.WriteMessage("Invalid selection, try again.");
+                    Writer.WaitForKey();
+                    continue;
+                }
+
+                _chosenUserId = students[choice.Value - 1].Id;
+                return false;
+            }
+        }
+
+        public async Task<bool> ShowProfessorsAsync()
+        {
+            if (_currentUser == null)
+                throw new InvalidOperationException("No user is currently logged in.");
+
+            System.Console.Clear();
+
+            var professors = await _userActions.GetUsersAsync(UserRole.Professor);
+
+            while (true)
+            {
+                System.Console.Clear();
+                Writer.WriteMessage($"=== Professors ===\n");
+                Writer.WriteUsers(professors);
+                Writer.WriteMessage("0: Go Back");
+
+                var choice = Reader.ReadInt("\nSelect a professor: ");
+
+                if (choice == 0)
+                    return true;
+
+                if (choice < 0 || choice > professors.Count)
+                {
+                    Writer.WriteMessage("Invalid selection, try again.");
+                    Writer.WaitForKey();
+                    continue;
+                }
+
+                if (!choice.HasValue)
+                {
+                    Writer.WriteMessage("Invalid selection, try again.");
+                    Writer.WaitForKey();
+                    continue;
+                }
+
+                _chosenUserId = professors[choice.Value - 1].Id;
+                return false;
             }
         }
     }

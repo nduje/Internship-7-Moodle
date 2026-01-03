@@ -5,7 +5,7 @@ namespace Moodle.Console.Views
 {
     public partial class MenuManager
     {
-        public async Task HandleEnrollStudent()
+        public async Task HandleEnrollStudentAsync()
         {
             if (_currentUser == null)
                     throw new InvalidOperationException("No user is currently logged in.");
@@ -18,7 +18,7 @@ namespace Moodle.Console.Views
             {
                 System.Console.Clear();
                 Writer.WriteMessage($"=== Enroll Student ===\n");
-                Writer.WriteStudents(students);
+                Writer.WriteUsers(students);
                 Writer.WriteMessage("0. Go Back");
 
                 var choice = Reader.ReadInt("\nSelect a student: ");
@@ -58,7 +58,7 @@ namespace Moodle.Console.Views
             }
         }
 
-        public async Task HandlePublishAnnouncement()
+        public async Task HandlePublishAnnouncementAsync()
         {
             if (_currentUser == null)
                 throw new InvalidOperationException("No user is currently logged in.");
@@ -94,7 +94,7 @@ namespace Moodle.Console.Views
             }
         }
 
-        public async Task HandleAddMaterial()
+        public async Task HandleAddMaterialAsync()
         {
             if (_currentUser == null)
                 throw new InvalidOperationException("No user is currently logged in.");
@@ -130,7 +130,7 @@ namespace Moodle.Console.Views
             }
         }
 
-        public async Task<Guid> HandleCreateConversation()
+        public async Task<Guid> HandleCreateConversationAsync()
         {
             if (_currentUser == null)
                 throw new InvalidOperationException("No user is currently logged in.");
@@ -159,7 +159,7 @@ namespace Moodle.Console.Views
             }
         }
 
-        public async Task<bool> HandleSendMessage()
+        public async Task<bool> HandleSendMessageAsync()
         {
             if (_currentUser == null)
                 throw new InvalidOperationException("No user is currently logged in.");
@@ -189,6 +189,78 @@ namespace Moodle.Console.Views
             }
 
             return false;
+        }
+
+        public async Task DeleteStudentAsync()
+        {
+            var exit_required = await ShowStudentsAsync();
+
+            if (exit_required)
+            {
+                return;
+            }
+
+            if (_chosenUserId == Guid.Empty)
+                throw new InvalidOperationException("No user is currently chosen.");
+
+            var confirmation = Reader.ReadInput("Are you sure? (Y/N):").Trim();
+
+            if (!string.Equals(confirmation, "Y", StringComparison.OrdinalIgnoreCase))
+            {
+                return;
+            }
+
+            var student = await _userActions.DeleteUserAsync(_chosenUserId);
+
+            _chosenUserId = Guid.Empty;
+
+            if (student == null)
+            {
+                Writer.WriteMessage("\nSomething went wrong.");
+                Writer.WaitForKey();
+            }
+
+            else
+            {
+                Writer.WriteMessage($"\nStudent has been deleted.");
+                Writer.WaitForKey();
+            }
+        }
+
+        public async Task DeleteProfessorAsync()
+        {
+            var exit_required = await ShowProfessorsAsync();
+
+            if (exit_required)
+            {
+                return;
+            }
+
+            if (_chosenUserId == Guid.Empty)
+                throw new InvalidOperationException("No user is currently chosen.");
+
+            var confirmation = Reader.ReadInput("Are you sure? (Y/N):").Trim();
+
+            if (!string.Equals(confirmation, "Y", StringComparison.OrdinalIgnoreCase))
+            {
+                return;
+            }
+
+            var student = await _userActions.DeleteUserAsync(_chosenUserId);
+
+            _chosenUserId = Guid.Empty;
+
+            if (student == null)
+            {
+                Writer.WriteMessage("\nSomething went wrong.");
+                Writer.WaitForKey();
+            }
+
+            else
+            {
+                Writer.WriteMessage($"\nProfessor has been deleted.");
+                Writer.WaitForKey();
+            }
         }
     }
 }
