@@ -1,4 +1,5 @@
 ﻿using Moodle.Application.Announcements.DTOs;
+using Moodle.Application.Courses.DTOs;
 using Moodle.Application.Enrollments.DTOs;
 using Moodle.Application.Materials.DTOs;
 
@@ -29,6 +30,49 @@ namespace Moodle.Console.Helpers
                 System.Console.WriteLine($"{i + 1}. Name: {course.Name}\n" +
                     $"   Description: {course.Description ?? "N/A"}\n" +
                     $"   Professor: {professor}\n");
+            }
+        }
+
+        public static void WriteProfessorCourses(IReadOnlyList<GetCoursesByProfessorResponse> courses)
+        {
+            var courseList = courses.ToList();
+
+            if (!courseList.Any())
+            {
+                System.Console.Clear();
+                WriteMessage("No courses found.");
+                WaitForKey();
+                return;
+            }
+
+            for (int i = 0; i < courses.Count; i++)
+            {
+                var course = courseList[i];
+
+                System.Console.WriteLine($"{i + 1}. Name: {course.Name}\n" +
+                    $"   Description: {course.Description ?? "N/A"}\n");
+            }
+        }
+
+        public static void WriteCourseStudents(IReadOnlyList<GetStudentsByCourseResponse> students)
+        {
+            var studentList = students.ToList();
+
+            if (!studentList.Any())
+            {
+                System.Console.Clear();
+                WriteMessage("No students found.");
+                WaitForKey();
+                return;
+            }
+
+            for (int i = 0; i < students.Count; i++)
+            {
+                var student = studentList[i];
+
+                System.Console.WriteLine($"{i + 1}. First Name: {student.FirstName}\n" +
+                    $"   Last Name: {student.LastName}\n" +
+                    $"   Email: {student.Email}\n");
             }
         }
 

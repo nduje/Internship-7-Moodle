@@ -40,7 +40,7 @@
         public static Dictionary<string, (string Description, Func<Task<bool>> Action)> CreateProfessorMenuOptions(MenuManager menuManager)
         {
             return new MenuOptions()
-                .AddOption("1", "My Courses", async () => { await menuManager.Placeholder(); System.Console.Clear(); return false; })
+                .AddOption("1", "My Courses", async () => { await menuManager.ShowProfessorCoursesAsync(); System.Console.Clear(); return false; })
                 .AddOption("2", "Manage Courses", async () => { await menuManager.Placeholder(); System.Console.Clear(); return false; })
                 .AddOption("3", "Private Chat", async () => { await menuManager.Placeholder(); System.Console.Clear(); return false; })
                 .AddOption("4", "Logout", async () => { System.Console.WriteLine("Exiting application..."); return true; })
@@ -62,6 +62,16 @@
                 .AddOption("1", "Materials", async () => { await menuManager.ShowCourseMaterialsAsync(); System.Console.Clear(); return false; })
                 .AddOption("2", "Announcements", async () => { await menuManager.ShowCourseAnnouncementsAsync(); System.Console.Clear(); return false; })
                 .AddOption("3", "Go Back", async () => { System.Console.WriteLine("Exiting application..."); return true; })
+                .Build();
+        }
+
+        public static Dictionary<string, (string Description, Func<Task<bool>> Action)> CreateProfessorCourseMenuOptions(MenuManager menuManager)
+        {
+            return new MenuOptions()
+                .AddOption("1", "Enrolled students", async () => { await menuManager.ShowCourseStudentsAsync(); System.Console.Clear(); return false; })
+                .AddOption("2", "Materials", async () => { await menuManager.ShowCourseMaterialsAsync(); System.Console.Clear(); return false; })
+                .AddOption("3", "Announcements", async () => { await menuManager.ShowCourseAnnouncementsAsync(); System.Console.Clear(); return false; })
+                .AddOption("4", "Go Back", async () => { System.Console.WriteLine("Exiting application..."); return true; })
                 .Build();
         }
     }

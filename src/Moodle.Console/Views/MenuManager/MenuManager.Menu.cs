@@ -130,5 +130,30 @@ namespace Moodle.Console.Views
                 }
             }
         }
+
+        public async Task ProfessorCourseMenuAsync()
+        {
+            bool exit_requested = false;
+
+            var main_menu_options = MenuOptions.CreateProfessorCourseMenuOptions(this);
+
+            while (!exit_requested)
+            {
+                System.Console.Clear();
+                Writer.DisplayMenu("Moodle - Course Menu", main_menu_options);
+
+                var choice = Reader.ReadMenuChoice();
+
+                if (main_menu_options.ContainsKey(choice))
+                {
+                    exit_requested = await main_menu_options[choice].Action();
+                }
+
+                else
+                {
+                    Writer.WriteMessage("Invalid option. Please try again.");
+                }
+            }
+        }
     }
 }
