@@ -48,13 +48,16 @@ namespace Moodle.Application.Materials.Handlers
                 return new Result<AddMaterialResponse?>(null, result.ValidationResult);
             }
 
+            await _materialRepository.SaveAsync();
+
             var response = new AddMaterialResponse
             {
                 Id = material.Id,
                 Name = material.Name,
                 Url = material.Url,
                 CreatedAt = material.CreatedAt,
-                CourseId = material.CourseId
+                CourseId = material.CourseId,
+                Course = material.Course
             };
 
             return new Result<AddMaterialResponse?>(response, result.ValidationResult);

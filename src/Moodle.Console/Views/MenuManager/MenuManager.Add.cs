@@ -57,5 +57,41 @@ namespace Moodle.Console.Views
                 }
             }
         }
+
+        public async Task HandleAddMaterial()
+        {
+            if (_currentUser == null)
+                throw new InvalidOperationException("No user is currently logged in.");
+
+            System.Console.Clear();
+
+            var name = Reader.ReadInput("Enter material name (type /exit to go back): ");
+
+            if (name == "/exit")
+            {
+                return;
+            }
+
+            var url = Reader.ReadInput("\nEnter material URL (type /exit to go back): ");
+
+            if (url == "/exit")
+            {
+                return;
+            }
+
+            var material = await _materialActions.AddMaterialAsync(name, url, _currentCourseId);
+
+            if (material == null)
+            {
+                Writer.WriteMessage("\nInvalid input.");
+                Writer.WaitForKey();
+            }
+
+            else
+            {
+                Writer.WriteMessage($"\nMaterial '{material.Name}' has been added in course {material.Course.Name}.");
+                Writer.WaitForKey();
+            }
+        }
     }
 }

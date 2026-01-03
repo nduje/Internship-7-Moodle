@@ -29,7 +29,8 @@ namespace Moodle.Console.Actions.Materials
                 Name = result.Value.Name,
                 Url = result.Value.Url,
                 CreatedAt = result.Value.CreatedAt,
-                CourseId = result.Value.CourseId
+                CourseId = result.Value.CourseId,
+                Course = result.Value.Course
             };
         }
 
