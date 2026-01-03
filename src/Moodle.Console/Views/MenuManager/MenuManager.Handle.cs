@@ -203,7 +203,7 @@ namespace Moodle.Console.Views
             if (_chosenUserId == Guid.Empty)
                 throw new InvalidOperationException("No user is currently chosen.");
 
-            var confirmation = Reader.ReadInput("Are you sure? (Y/N):").Trim();
+            var confirmation = Reader.ReadInput("\nAre you sure? (Y/N):").Trim();
 
             if (!string.Equals(confirmation, "Y", StringComparison.OrdinalIgnoreCase))
             {
@@ -241,7 +241,7 @@ namespace Moodle.Console.Views
             if (_chosenUserId == Guid.Empty)
                 throw new InvalidOperationException("No user is currently chosen.");
 
-            var confirmation = Reader.ReadInput("Are you sure? (Y/N):").Trim();
+            var confirmation = Reader.ReadInput("\nAre you sure? (Y/N):").Trim();
 
             if (!string.Equals(confirmation, "Y", StringComparison.OrdinalIgnoreCase))
             {
@@ -267,6 +267,106 @@ namespace Moodle.Console.Views
             }
         }
 
+        public async Task UpdateStudentEmailAsync()
+        {
+            var exit_required = await ShowStudentsAsync();
+
+            if (exit_required)
+            {
+                return;
+            }
+
+            if (_chosenUserId == Guid.Empty)
+                throw new InvalidOperationException("No user is currently chosen.");
+
+            var email = string.Empty;
+
+            while (true)
+            {
+                email = Reader.ReadInput("\nEnter new email (example@example.com): ");
+
+                if (EmailRegex.IsMatch(email))
+                    break;
+
+                Writer.WriteMessage("\nInvalid email format. Please try again.");
+            }
+
+            var confirmation = Reader.ReadInput("\nAre you sure? (Y/N):").Trim();
+
+            if (!string.Equals(confirmation, "Y", StringComparison.OrdinalIgnoreCase))
+            {
+                Writer.WriteMessage("\nOperation has been canceled.");
+                Writer.WaitForKey();
+                return;
+            }
+
+            var student = await _userActions.UpdateEmailAsync(_chosenUserId, email);
+
+            _chosenUserId = Guid.Empty;
+
+            if (student == null)
+            {
+                Writer.WriteMessage("\nSomething went wrong.");
+                Writer.WaitForKey();
+            }
+
+            else
+            {
+                Writer.WriteMessage($"\nStudent's email has been updated to {email}.");
+                Writer.WaitForKey();
+            }
+        }
+
+        public async Task UpdateProfessorEmailAsync()
+        {
+            var exit_required = await ShowProfessorsAsync();
+
+            if (exit_required)
+            {
+                return;
+            }
+
+            if (_chosenUserId == Guid.Empty)
+                throw new InvalidOperationException("No user is currently chosen.");
+
+            var email = string.Empty;
+
+            while (true)
+            {
+                email = Reader.ReadInput("\nEnter new email (example@example.com): ");
+
+                if (EmailRegex.IsMatch(email))
+                    break;
+
+                Writer.WriteMessage("\nInvalid email format. Please try again.");
+            }
+
+            var confirmation = Reader.ReadInput("\nAre you sure? (Y/N):").Trim();
+
+            if (!string.Equals(confirmation, "Y", StringComparison.OrdinalIgnoreCase))
+            {
+                Writer.WriteMessage("\nOperation has been canceled.");
+                Writer.WaitForKey();
+                return;
+            }
+
+            var student = await _userActions.ChangeUserRoleAsync(_chosenUserId, UserRole.Professor);
+
+            _chosenUserId = Guid.Empty;
+
+            if (student == null)
+            {
+                Writer.WriteMessage("\nSomething went wrong.");
+                Writer.WaitForKey();
+            }
+
+            else
+            {
+                Writer.WriteMessage($"\nProfessor's email has been updated to {email}.");
+                Writer.WaitForKey();
+            }
+        }
+
         public async Task ChangeStudentRoleAsync()
         {
             var exit_required = await ShowStudentsAsync();
@@ -279,7 +379,7 @@ namespace Moodle.Console.Views
             if (_chosenUserId == Guid.Empty)
                 throw new InvalidOperationException("No user is currently chosen.");
 
-            var confirmation = Reader.ReadInput("Are you sure? (Y/N):").Trim();
+            var confirmation = Reader.ReadInput("\nAre you sure? (Y/N):").Trim();
 
             if (!string.Equals(confirmation, "Y", StringComparison.OrdinalIgnoreCase))
             {
@@ -317,7 +417,7 @@ namespace Moodle.Console.Views
             if (_chosenUserId == Guid.Empty)
                 throw new InvalidOperationException("No user is currently chosen.");
 
-            var confirmation = Reader.ReadInput("Are you sure? (Y/N):").Trim();
+            var confirmation = Reader.ReadInput("\nAre you sure? (Y/N):").Trim();
 
             if (!string.Equals(confirmation, "Y", StringComparison.OrdinalIgnoreCase))
             {

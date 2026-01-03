@@ -98,7 +98,7 @@
         {
             return new MenuOptions()
                 .AddOption("1", "Delete Users", async () => { await menuManager.DeleteUsersMenuAsync(); System.Console.Clear(); return false; })
-                .AddOption("2", "Update Email", async () => { await menuManager.Placeholder(); System.Console.Clear(); return false; })
+                .AddOption("2", "Update Email", async () => { await menuManager.UpdateEmailMenuAsync(); System.Console.Clear(); return false; })
                 .AddOption("3", "Change Role", async () => { await menuManager.ChangeRoleMenuAsync(); System.Console.Clear(); return false; })
                 .AddOption("4", "Go Back", async () => { System.Console.WriteLine("Exiting application..."); return await Task.FromResult(true); })
                 .Build();
@@ -116,8 +116,8 @@
         public static Dictionary<string, (string Description, Func<Task<bool>> Action)> CreateUpdateEmailMenuOptions(MenuManager menuManager)
         {
             return new MenuOptions()
-                .AddOption("1", "Update Student Email", async () => { await menuManager.Placeholder(); System.Console.Clear(); return false; })
-                .AddOption("2", "Update Professor Email", async () => { await menuManager.Placeholder(); System.Console.Clear(); return false; })
+                .AddOption("1", "Update Student Email", async () => { await menuManager.UpdateStudentEmailAsync(); System.Console.Clear(); return false; })
+                .AddOption("2", "Update Professor Email", async () => { await menuManager.UpdateProfessorEmailAsync(); System.Console.Clear(); return false; })
                 .AddOption("3", "Go Back", async () => { System.Console.WriteLine("Exiting application..."); return await Task.FromResult(true); })
                 .Build();
         }
