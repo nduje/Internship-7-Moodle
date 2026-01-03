@@ -40,8 +40,38 @@ namespace Moodle.Console.Views
                     continue;
                 }
 
-                var course = courses[choice.Value - 1].Id;
+                _currentCourseId = courses[choice.Value - 1].Id;
+                
+                await StudentCourseMenuAsync();
             }
+        }
+
+        public async Task ShowCourseMaterialsAsync()
+        {
+            if (_currentCourseId == Guid.Empty)
+                throw new InvalidOperationException("No course has been selected.");
+
+            System.Console.Clear();
+
+            var materials = await _materialActions.GetMaterialsByCourseAsync(_currentCourseId);
+
+            Writer.WriteMessage($"=== Materials ===\n");
+            Writer.WriteCourseMaterials(materials);
+            Writer.WaitForKey();
+        }
+
+        public async Task ShowCourseAnnouncementsAsync()
+        {
+            if (_currentCourseId == Guid.Empty)
+                throw new InvalidOperationException("No course has been selected.");
+
+            System.Console.Clear();
+
+            var announcements = await _announcementActions.GetAnnouncementsByCoursesAsync(_currentCourseId);
+
+            Writer.WriteMessage($"=== Materials ===\n");
+            Writer.WriteCourseAnnouncements(announcements);
+            Writer.WaitForKey();
         }
     }
 }

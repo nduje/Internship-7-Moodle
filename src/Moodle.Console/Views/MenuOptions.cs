@@ -55,5 +55,14 @@
                 .AddOption("3", "Logout", async () => { System.Console.WriteLine("Exiting application..."); return true; })
                 .Build();
         }
+
+        public static Dictionary<string, (string Description, Func<Task<bool>> Action)> CreateStudentCourseMenuOptions(MenuManager menuManager)
+        {
+            return new MenuOptions()
+                .AddOption("1", "Materials", async () => { await menuManager.ShowCourseMaterialsAsync(); System.Console.Clear(); return false; })
+                .AddOption("2", "Announcements", async () => { await menuManager.ShowCourseAnnouncementsAsync(); System.Console.Clear(); return false; })
+                .AddOption("3", "Go Back", async () => { System.Console.WriteLine("Exiting application..."); return true; })
+                .Build();
+        }
     }
 }

@@ -6,6 +6,7 @@ using Moodle.Console.Actions.Materials;
 using Moodle.Console.Actions.Messages;
 using Moodle.Console.Actions.Users;
 using Moodle.Console.Helpers;
+using Moodle.Domain.Entities.Courses;
 using Moodle.Domain.Entities.Users;
 
 namespace Moodle.Console.Views
@@ -21,6 +22,7 @@ namespace Moodle.Console.Views
         private readonly MessageActions _messageActions;
 
         private User? _currentUser;
+        private Guid _currentCourseId;
 
         public MenuManager(
             UserActions userActions,
@@ -39,6 +41,7 @@ namespace Moodle.Console.Views
             _conversationActions = conversationActions;
             _messageActions = messageActions;
             _currentUser = null;
+            _currentCourseId = Guid.Empty;
         }
 
         public async Task RunAsync()

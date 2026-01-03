@@ -1,4 +1,6 @@
-﻿using Moodle.Application.Enrollments.DTOs;
+﻿using Moodle.Application.Announcements.DTOs;
+using Moodle.Application.Enrollments.DTOs;
+using Moodle.Application.Materials.DTOs;
 
 namespace Moodle.Console.Helpers
 {
@@ -27,6 +29,50 @@ namespace Moodle.Console.Helpers
                 System.Console.WriteLine($"{i + 1}. Name: {course.Name}\n" +
                     $"   Description: {course.Description ?? "N/A"}\n" +
                     $"   Professor: {professor}\n");
+            }
+        }
+
+        public static void WriteCourseMaterials(IReadOnlyList<GetMaterialsByCourseResponse> materials)
+        {
+            var materialList = materials.ToList();
+
+            if (!materialList.Any())
+            {
+                System.Console.Clear();
+                WriteMessage("No materials found.");
+                WaitForKey();
+                return;
+            }
+
+            for (int i = 0; i < materials.Count; i++)
+            {
+                var material = materialList[i];
+
+                System.Console.WriteLine($"{i + 1}. Name: {material.Name}\n" +
+                    $"   Description: {material.Url ?? "N/A"}\n" +
+                    $"   Created At: {material.CreatedAt}\n");
+            }
+        }
+
+        public static void WriteCourseAnnouncements(IReadOnlyList<GetAnnouncementsByCourseResponse> announcements)
+        {
+            var announcementsList = announcements.ToList();
+
+            if (!announcementsList.Any())
+            {
+                System.Console.Clear();
+                WriteMessage("No materials found.");
+                WaitForKey();
+                return;
+            }
+
+            for (int i = 0; i < announcements.Count; i++)
+            {
+                var announcement = announcementsList[i];
+
+                System.Console.WriteLine($"{i + 1}. Name: {announcement.Title}\n" +
+                    $"   Description: {announcement.Content ?? "N/A"}\n" +
+                    $"   Created At: {announcement.CreatedAt}\n");
             }
         }
 
