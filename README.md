@@ -21,3 +21,13 @@ The project contains an **ERD diagram** that visually displays all database enti
 ![ERD Diagram](./docs/erd.png)
 
 **Key entities**: User, Course, Enrollment, Announcement, Material, Conversation, Message
+
+## Setup
+
+1. Set `Moodle.Console` as the startup project.
+2. Create a PostgreSQL database named `Moodle`.
+3. Apply migrations to create the database schema and seed data by running the following command in PowerShell from the solution root:
+
+```powershell
+dotnet ef database update --project Moodle.Infrastructure --startup-project Moodle.Console
+```
