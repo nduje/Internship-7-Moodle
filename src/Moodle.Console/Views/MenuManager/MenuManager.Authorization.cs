@@ -8,6 +8,9 @@ namespace Moodle.Console.Views
         {
             while (true)
             {
+                System.Console.Clear();
+                System.Console.WriteLine("=== Login ===");
+
                 var email = Reader.ReadInput("\nEnter email (type /exit to go back):");
 
                 if (email == "/exit")
