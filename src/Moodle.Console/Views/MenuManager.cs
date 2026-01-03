@@ -28,7 +28,7 @@ namespace Moodle.Console.Views
         private Guid _currentConversationId;
 
         private readonly Regex EmailRegex = new Regex(@"^[^@\s]+@[^@\s]+\.[^@\s]+$");
-        private readonly Regex PasswordRegex = new Regex("@\"^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)(?=.*[^a-zA-Z0-9]).+$");
+        // private readonly Regex PasswordRegex = new Regex(@"^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)(?=.*[^a-zA-Z0-9]).+$");
 
         public MenuManager(
             UserActions userActions,

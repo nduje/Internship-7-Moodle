@@ -100,7 +100,7 @@ namespace Moodle.Console.Actions.Users
 
             if (result.Value == Guid.Empty)
             {
-                return null;
+                return Guid.Empty;
             }
 
             return result.Value;

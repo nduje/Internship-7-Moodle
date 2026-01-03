@@ -14,7 +14,7 @@ namespace Moodle.Domain.Entities.Users
         public const int PasswordMinLength = 8;
         public const int PasswordMaxLength = 128;
         private static readonly Regex EmailRegex = new Regex(@"^[^@\s]+@[^@\s]+\.[^@\s]+$");
-        private static readonly Regex PasswordRegex = new Regex("@\"^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)(?=.*[^a-zA-Z0-9]).+$");
+        // private static readonly Regex PasswordRegex = new Regex(@"^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)(?=.*[^a-zA-Z0-9]).+$");
 
         // Primary Key
         public Guid Id { get; init; } = Guid.NewGuid();
@@ -83,8 +83,8 @@ namespace Moodle.Domain.Entities.Users
             if (Password.Length > PasswordMaxLength)
                 validationResult.AddValidationItem(ValidationItems.User.PasswordMaxLength);
 
-            if (!string.IsNullOrWhiteSpace(Password) && !PasswordRegex.IsMatch(Password))
-                validationResult.AddValidationItem(ValidationItems.User.PasswordInvalidFormat);
+            //if (!string.IsNullOrWhiteSpace(Password) && !PasswordRegex.IsMatch(Password))
+            //    validationResult.AddValidationItem(ValidationItems.User.PasswordInvalidFormat);
 
             return validationResult;
         }

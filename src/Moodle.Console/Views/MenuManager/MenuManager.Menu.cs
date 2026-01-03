@@ -9,7 +9,7 @@ namespace Moodle.Console.Views
         public async Task UserMenuAsync()
         {
             _currentUser = null;
-            _currentUser = await HandleLoginUserAsync();
+            await HandleLoginUserAsync();
 
             if (_currentUser == null)
             {

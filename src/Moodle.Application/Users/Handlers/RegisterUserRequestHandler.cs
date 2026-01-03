@@ -1,9 +1,11 @@
-﻿using Moodle.Application.Users.DTOs;
+﻿using Moodle.Application.Materials.DTOs;
+using Moodle.Application.Users.DTOs;
 using Moodle.Domain.Common.Model;
 using Moodle.Domain.Common.Validation;
 using Moodle.Domain.Common.Validation.ValidationItems;
 using Moodle.Domain.Entities.Users;
 using Moodle.Domain.Enumerations.Users;
+using Moodle.Domain.Persistence.Materials;
 using Moodle.Domain.Persistence.Users;
 
 namespace Moodle.Application.Users.Handlers
@@ -36,7 +38,16 @@ namespace Moodle.Application.Users.Handlers
                 Role = UserRole.Student
             };
 
-            return await user.Create(_userRepository);
+            var result = await user.Create(_userRepository);
+
+            if (result.Value == null)
+            {
+                return new Result<Guid?>(Guid.Empty, result.ValidationResult);
+            }
+
+            await _userRepository.SaveAsync();
+
+            return new Result<Guid?>(user.Id, new ValidationResult());
         }
 
         private Result<Guid?> Fail(ValidationItem item)
