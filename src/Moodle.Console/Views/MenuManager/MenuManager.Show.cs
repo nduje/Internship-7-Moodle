@@ -19,7 +19,7 @@ namespace Moodle.Console.Views
                 System.Console.Clear();
                 Writer.WriteMessage($"=== {_currentUser.FirstName}'s Courses ===\n");
                 Writer.WriteStudentCourses(courses);
-                Writer.WriteMessage("0. Go Back");
+                Writer.WriteMessage("0: Go Back");
 
                 var choice = Reader.ReadInt("\nSelect a course: ");
 
@@ -60,7 +60,7 @@ namespace Moodle.Console.Views
                 System.Console.Clear();
                 Writer.WriteMessage($"=== {_currentUser.FirstName}'s Courses ===\n");
                 Writer.WriteProfessorCourses(courses);
-                Writer.WriteMessage("0. Go Back");
+                Writer.WriteMessage("0: Go Back");
 
                 var choice = Reader.ReadInt("\nSelect a course: ");
 
@@ -132,6 +132,84 @@ namespace Moodle.Console.Views
             Writer.WriteMessage($"=== Announcements ===\n");
             Writer.WriteCourseAnnouncements(announcements);
             Writer.WaitForKey();
+        }
+
+        public async Task ShowNewChatsAsync()
+        {
+            if (_currentUser == null)
+                throw new InvalidOperationException("No user is currently logged in.");
+
+            System.Console.Clear();
+
+            var conversations = await _conversationActions.GetNonChatUsersAsync(_currentUser.Id);
+
+            while (true)
+            {
+                System.Console.Clear();
+                Writer.WriteMessage($"=== {_currentUser.FirstName}'s New Chats ===\n");
+                Writer.WriteNewChatUsers(conversations);
+                Writer.WriteMessage("0: Go Back");
+
+                var choice = Reader.ReadInt("\nSelect an user: ");
+
+                if (choice == 0)
+                    return;
+
+                if (choice < 0 || choice > conversations.Count)
+                {
+                    Writer.WriteMessage("Invalid selection, try again.");
+                    Writer.WaitForKey();
+                    continue;
+                }
+
+                if (!choice.HasValue)
+                {
+                    Writer.WriteMessage("Invalid selection, try again.");
+                    Writer.WaitForKey();
+                    continue;
+                }
+
+                _chosenUserId = conversations[choice.Value - 1].Id;
+            }
+        }
+
+        public async Task ShowChatsAsync()
+        {
+            if (_currentUser == null)
+                throw new InvalidOperationException("No user is currently logged in.");
+
+            System.Console.Clear();
+
+            var conversations = await _conversationActions.GetChatUsersAsync(_currentUser.Id);
+
+            while (true)
+            {
+                System.Console.Clear();
+                Writer.WriteMessage($"=== {_currentUser.FirstName}'s Chats ===\n");
+                Writer.WriteChatUsers(conversations);
+                Writer.WriteMessage("0: Go Back");
+
+                var choice = Reader.ReadInt("\nSelect an user: ");
+
+                if (choice == 0)
+                    return;
+
+                if (choice < 0 || choice > conversations.Count)
+                {
+                    Writer.WriteMessage("Invalid selection, try again.");
+                    Writer.WaitForKey();
+                    continue;
+                }
+
+                if (!choice.HasValue)
+                {
+                    Writer.WriteMessage("Invalid selection, try again.");
+                    Writer.WaitForKey();
+                    continue;
+                }
+
+                _chosenUserId = conversations[choice.Value - 1].Id;
+            }
         }
     }
 }

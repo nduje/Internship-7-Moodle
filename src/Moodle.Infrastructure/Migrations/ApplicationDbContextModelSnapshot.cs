@@ -122,8 +122,8 @@ namespace Moodle.Infrastructure.Migrations
                         new
                         {
                             Id = new Guid("eeeeeeee-eeee-eeee-eeee-eeeeeeeeeeee"),
-                            User1Id = new Guid("44444444-4444-4444-4444-444444444444"),
-                            User2Id = new Guid("22222222-2222-2222-2222-222222222222")
+                            User1Id = new Guid("22222222-2222-2222-2222-222222222222"),
+                            User2Id = new Guid("44444444-4444-4444-4444-444444444444")
                         });
                 });
 

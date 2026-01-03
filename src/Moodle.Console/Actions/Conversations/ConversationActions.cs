@@ -51,7 +51,8 @@ namespace Moodle.Console.Actions.Conversations
                 Id = c.Id,
                 FirstName = c.FirstName,
                 LastName = c.LastName,
-                Email = c.Email
+                Email = c.Email,
+                Role = c.Role
             }).ToList();
         }
 
@@ -69,7 +70,8 @@ namespace Moodle.Console.Actions.Conversations
                 Id = c.Id,
                 FirstName = c.FirstName,
                 LastName = c.LastName,
-                Email = c.Email
+                Email = c.Email,
+                Role = c.Role
             }).ToList();
         }
     }

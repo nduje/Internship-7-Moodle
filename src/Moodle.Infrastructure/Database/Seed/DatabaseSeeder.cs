@@ -190,8 +190,8 @@ namespace Moodle.Infrastructure.Database.Seed
                 new Conversation
                 {
                     Id = conversation_id,
-                    User1Id = student1_id,
-                    User2Id = professor1_id
+                    User1Id = professor1_id,
+                    User2Id = student1_id,
                 }
             );
 

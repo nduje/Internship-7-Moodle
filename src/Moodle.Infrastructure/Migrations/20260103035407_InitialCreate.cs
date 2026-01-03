@@ -207,7 +207,7 @@ namespace Moodle.Infrastructure.Migrations
                 schema: "public",
                 table: "conversations",
                 columns: new[] { "id", "user1_id", "user2_id" },
-                values: new object[] { new Guid("eeeeeeee-eeee-eeee-eeee-eeeeeeeeeeee"), new Guid("44444444-4444-4444-4444-444444444444"), new Guid("22222222-2222-2222-2222-222222222222") });
+                values: new object[] { new Guid("eeeeeeee-eeee-eeee-eeee-eeeeeeeeeeee"), new Guid("22222222-2222-2222-2222-222222222222"), new Guid("44444444-4444-4444-4444-444444444444") });
 
             migrationBuilder.InsertData(
                 schema: "public",

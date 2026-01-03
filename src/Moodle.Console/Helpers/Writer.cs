@@ -1,4 +1,5 @@
 ﻿using Moodle.Application.Announcements.DTOs;
+using Moodle.Application.Conversations.DTOs;
 using Moodle.Application.Courses.DTOs;
 using Moodle.Application.Enrollments.DTOs;
 using Moodle.Application.Materials.DTOs;
@@ -24,7 +25,7 @@ namespace Moodle.Console.Helpers
             {
                 var student = studentList[i];
 
-                System.Console.WriteLine($"{i + 1}. First Name: {student.FirstName}\n" +
+                System.Console.WriteLine($"{i + 1}: First Name: {student.FirstName}\n" +
                     $"   Last Name: {student.LastName}\n" +
                     $"   Email: {student.Email}\n");
             }
@@ -50,7 +51,7 @@ namespace Moodle.Console.Helpers
                     ? $"{course.Professor.FirstName} {course.Professor.LastName}"
                     : "N/A";
 
-                System.Console.WriteLine($"{i + 1}. Name: {course.Name}\n" +
+                System.Console.WriteLine($"{i + 1}: Name: {course.Name}\n" +
                     $"   Description: {course.Description ?? "N/A"}\n" +
                     $"   Professor: {professor}\n");
             }
@@ -72,7 +73,7 @@ namespace Moodle.Console.Helpers
             {
                 var course = courseList[i];
 
-                System.Console.WriteLine($"{i + 1}. Name: {course.Name}\n" +
+                System.Console.WriteLine($"{i + 1}: Name: {course.Name}\n" +
                     $"   Description: {course.Description ?? "N/A"}\n");
             }
         }
@@ -93,7 +94,7 @@ namespace Moodle.Console.Helpers
             {
                 var student = studentList[i];
 
-                System.Console.WriteLine($"{i + 1}. First Name: {student.FirstName}\n" +
+                System.Console.WriteLine($"{i + 1}: First Name: {student.FirstName}\n" +
                     $"   Last Name: {student.LastName}\n" +
                     $"   Email: {student.Email}\n");
             }
@@ -115,7 +116,7 @@ namespace Moodle.Console.Helpers
             {
                 var material = materialList[i];
 
-                System.Console.WriteLine($"{i + 1}. Name: {material.Name}\n" +
+                System.Console.WriteLine($"{i + 1}: Name: {material.Name}\n" +
                     $"   URL: {material.Url ?? "N/A"}\n" +
                     $"   Created At: {material.CreatedAt}\n");
             }
@@ -137,9 +138,55 @@ namespace Moodle.Console.Helpers
             {
                 var announcement = announcementsList[i];
 
-                System.Console.WriteLine($"{i + 1}. Title: {announcement.Title}\n" +
+                System.Console.WriteLine($"{i + 1}: Title: {announcement.Title}\n" +
                     $"   Content: {announcement.Content ?? "N/A"}\n" +
                     $"   Created At: {announcement.CreatedAt}\n");
+            }
+        }
+
+        public static void WriteNewChatUsers(IReadOnlyList<GetNonChatUsersResponse> users)
+        {
+            var userList = users.ToList();
+
+            if (!userList.Any())
+            {
+                System.Console.Clear();
+                WriteMessage("No users found.");
+                WaitForKey();
+                return;
+            }
+
+            for (int i = 0; i < users.Count; i++)
+            {
+                var user = userList[i];
+
+                System.Console.WriteLine($"{i + 1}: First Name: {user.FirstName}\n" +
+                    $"   Last Name: {user.LastName}\n" +
+                    $"   Email: {user.Email}\n" +
+                    $"   Role: {user.Role}\n");
+            }
+        }
+
+        public static void WriteChatUsers(IReadOnlyList<GetChatUsersResponse> users)
+        {
+            var userList = users.ToList();
+
+            if (!userList.Any())
+            {
+                System.Console.Clear();
+                WriteMessage("No users found.");
+                WaitForKey();
+                return;
+            }
+
+            for (int i = 0; i < users.Count; i++)
+            {
+                var user = userList[i];
+
+                System.Console.WriteLine($"{i + 1}: First Name: {user.FirstName}\n" +
+                    $"   Last Name: {user.LastName}\n" +
+                    $"   Email: {user.Email}\n" +
+                    $"   Role: {user.Role}\n");
             }
         }
 
