@@ -22,7 +22,8 @@ namespace Moodle.Application.Enrollments.Handlers
             {
                 Id = course.Id,
                 Name = course.Name,
-                Description = course.Description
+                Description = course.Description,
+                Professor = course.Professor
             }).ToList();
 
             return new Result<IReadOnlyList<GetCoursesByStudentResponse>>(response, new ValidationResult());

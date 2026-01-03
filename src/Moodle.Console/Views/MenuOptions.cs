@@ -23,7 +23,7 @@
         public static Dictionary<string, (string Description, Func<Task<bool>> Action)> CreateMainMenuOptions(MenuManager menuManager)
         {
             return new MenuOptions()
-                .AddOption("1", "Login", async () => { await menuManager.HandleUserMenuAsync(); System.Console.Clear(); return false; })
+                .AddOption("1", "Login", async () => { await menuManager.UserMenuAsync(); System.Console.Clear(); return false; })
                 .AddOption("2", "Registration", async () => { await menuManager.HandleRegisterUserAsync(); System.Console.Clear(); return false; })
                 .AddOption("3", "Exit", async () => { System.Console.WriteLine("Exiting application..."); return true; })
                 .Build();
@@ -31,7 +31,7 @@
         public static Dictionary<string, (string Description, Func<Task<bool>> Action)> CreateStudentMenuOptions(MenuManager menuManager)
         {
             return new MenuOptions()
-                .AddOption("1", "My Courses", async () => { await menuManager.Placeholder(); System.Console.Clear(); return false; })
+                .AddOption("1", "My Courses", async () => { await menuManager.ShowStudentCoursesAsync(); System.Console.Clear(); return false; })
                 .AddOption("2", "Private Chat", async () => { await menuManager.Placeholder(); System.Console.Clear(); return false; })
                 .AddOption("3", "Logout", async () => { System.Console.WriteLine("Exiting application..."); return true; })
                 .Build();

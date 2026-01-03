@@ -28,9 +28,9 @@
             return null;
         }
 
-        public static string ReadMenuChoice(string prompt = "Select an option: ")
+        public static string ReadMenuChoice(string prompt = "\nSelect an option: ")
         {
-            System.Console.WriteLine(prompt);
+            System.Console.Write(prompt);
 
             return System.Console.ReadLine() ?? "";
         }

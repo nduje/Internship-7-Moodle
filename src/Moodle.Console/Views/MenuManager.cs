@@ -20,7 +20,7 @@ namespace Moodle.Console.Views
         private readonly ConversationActions _conversationActions;
         private readonly MessageActions _messageActions;
 
-        private readonly User? _currentUser;
+        private User? _currentUser;
 
         public MenuManager(
             UserActions userActions,

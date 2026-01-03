@@ -1,5 +1,6 @@
 ﻿using Moodle.Application.Users.DTOs;
 using Moodle.Application.Users.Handlers;
+using Moodle.Domain.Entities.Users;
 using Moodle.Domain.Enumerations.Users;
 
 
@@ -81,11 +82,11 @@ namespace Moodle.Console.Actions.Users
             }).ToList();
         }
 
-        public async Task<Guid?> LoginUserAsync(string email, string password)
+        public async Task<User?> LoginUserAsync(string email, string password)
         {
             var result = await _loginUserRequestHandler.Login(new LoginUserRequest(email, password));
 
-            if (result.Value == Guid.Empty)
+            if (result.Value == null)
             {
                 return null;
             }
@@ -93,7 +94,7 @@ namespace Moodle.Console.Actions.Users
             return result.Value;
         }
 
-        public async Task<Guid?> RegisterUserAsync(string first_name, string last_name, DateOnly? birth_date, string email, string password)
+        public async Task<Guid?> RegisterUserAsync(string first_name, string last_name, DateTime? birth_date, string email, string password)
         {
             var result = await _registerUserRequestHandler.Register(new RegisterUserRequest(first_name, last_name, birth_date, email, password));
 

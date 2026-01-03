@@ -5,27 +5,32 @@ namespace Moodle.Console.Views
 {
     public partial class MenuManager
     {
-        public async Task HandleUserMenuAsync()
+        public async Task UserMenuAsync()
         {
-            var user = await HandleLoginUserAsync();
+            _currentUser = await HandleLoginUserAsync();
 
-            switch (user)
+            if (_currentUser == null)
+            {
+                return;
+            }
+
+            switch (_currentUser.Role)
             {
                 case UserRole.Student:
-                    await HandleStudentMenuAsync();
+                    await StudentMenuAsync();
                     break;
                 case UserRole.Professor:
-                    await HandleProfessorMenuAsync();
+                    await ProfessorMenuAsync();
                     break;
                 case UserRole.Admin:
-                    await HandleAdminMenuAsync();
+                    await AdminMenuAsync();
                     break;
                 default:
                     return;
             }
         }
 
-        public async Task HandleStudentMenuAsync()
+        public async Task StudentMenuAsync()
         {
             bool exit_requested = false;
 
@@ -33,6 +38,32 @@ namespace Moodle.Console.Views
 
             while (!exit_requested)
             {
+                System.Console.Clear();
+                Writer.DisplayMenu("Moodle - Student Menu", main_menu_options);
+
+                var choice = Reader.ReadMenuChoice();
+
+                if (main_menu_options.ContainsKey(choice))
+                {
+                    exit_requested = await main_menu_options[choice].Action();
+                }
+
+                else
+                {
+                    Writer.WriteMessage("Invalid option. Please try again.");
+                }
+            }
+        }
+
+        public async Task ProfessorMenuAsync()
+        {
+            bool exit_requested = false;
+
+            var main_menu_options = MenuOptions.CreateProfessorMenuOptions(this);
+
+            while (!exit_requested)
+            {
+                System.Console.Clear();
                 Writer.DisplayMenu("Moodle - Professor Menu", main_menu_options);
 
                 var choice = Reader.ReadMenuChoice();
@@ -49,31 +80,7 @@ namespace Moodle.Console.Views
             }
         }
 
-        public async Task HandleProfessorMenuAsync()
-        {
-            bool exit_requested = false;
-
-            var main_menu_options = MenuOptions.CreateProfessorMenuOptions(this);
-
-            while (!exit_requested)
-            {
-                Writer.DisplayMenu("Moodle - Student Menu", main_menu_options);
-
-                var choice = Reader.ReadMenuChoice();
-
-                if (main_menu_options.ContainsKey(choice))
-                {
-                    exit_requested = await main_menu_options[choice].Action();
-                }
-
-                else
-                {
-                    Writer.WriteMessage("Invalid option. Please try again.");
-                }
-            }
-        }
-
-        public async Task HandleAdminMenuAsync()
+        public async Task AdminMenuAsync()
         {
             bool exit_requested = false;
 
@@ -81,7 +88,8 @@ namespace Moodle.Console.Views
 
             while (!exit_requested)
             {
-                Writer.DisplayMenu("Moodle - Student Menu", main_menu_options);
+                System.Console.Clear();
+                Writer.DisplayMenu("Moodle - Admin Menu", main_menu_options);
 
                 var choice = Reader.ReadMenuChoice();
 
