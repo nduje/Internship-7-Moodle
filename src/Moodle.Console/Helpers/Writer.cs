@@ -2,11 +2,34 @@
 using Moodle.Application.Courses.DTOs;
 using Moodle.Application.Enrollments.DTOs;
 using Moodle.Application.Materials.DTOs;
+using Moodle.Application.Users.DTOs;
 
 namespace Moodle.Console.Helpers
 {
     public static class Writer
     {
+        public static void WriteStudents(IReadOnlyList<GetUsersResponse> students)
+        {
+            var studentList = students.ToList();
+
+            if (!studentList.Any())
+            {
+                System.Console.Clear();
+                WriteMessage("No students found.");
+                WaitForKey();
+                return;
+            }
+
+            for (int i = 0; i < students.Count; i++)
+            {
+                var student = studentList[i];
+
+                System.Console.WriteLine($"{i + 1}. First Name: {student.FirstName}\n" +
+                    $"   Last Name: {student.LastName}\n" +
+                    $"   Email: {student.Email}\n");
+            }
+        }
+
         public static void WriteStudentCourses(IReadOnlyList<GetCoursesByStudentResponse> courses)
         {
             var courseList = courses.ToList();

@@ -58,12 +58,16 @@ namespace Moodle.Application.Enrollments.Handlers
                 return new Result<AddEnrollmentResponse?>(null, result.ValidationResult);
             }
 
+            await _enrollmentRepository.SaveAsync();
+
             var response = new AddEnrollmentResponse
             {
                 Id = enrollment.Id,
                 StudentId = enrollment.StudentId,
                 CourseId = enrollment.CourseId,
-                EnrolledAt = enrollment.EnrolledAt
+                EnrolledAt = enrollment.EnrolledAt,
+                Student = enrollment.Student,
+                Course = enrollment.Course
             };
 
             return new Result<AddEnrollmentResponse?>(response, result.ValidationResult);

@@ -41,5 +41,10 @@ namespace Moodle.Infrastructure.Repositories.Common
                 _dbSet.Remove(entity);
             }
         }
+
+        public async Task SaveAsync()
+        {
+            await _context.SaveChangesAsync();
+        }
     }
 }

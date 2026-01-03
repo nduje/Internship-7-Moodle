@@ -46,7 +46,7 @@ namespace Moodle.Console.Views
             }
         }
 
-        public async Task ShowProfessorCoursesAsync()
+        public async Task ShowProfessorCoursesAsync(bool manage_courses)
         {
             if (_currentUser == null)
                 throw new InvalidOperationException("No user is currently logged in.");
@@ -83,7 +83,12 @@ namespace Moodle.Console.Views
 
                 _currentCourseId = courses[choice.Value - 1].Id;
 
-                await ProfessorCourseMenuAsync();
+                if (!manage_courses)
+                    await ProfessorCourseMenuAsync();
+
+                else
+                    await ProfessorManageCourseMenuAsync();
+
             }
         }
 

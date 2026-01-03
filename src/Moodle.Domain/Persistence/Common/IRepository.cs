@@ -8,5 +8,6 @@ namespace Moodle.Domain.Persistence.Common
         Task InsertAsync(TEntity entity);
         void Update(TEntity entity);
         Task DeleteAsync(TId id);
+        Task SaveAsync();
     }
 }

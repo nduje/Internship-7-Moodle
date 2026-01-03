@@ -33,7 +33,9 @@ namespace Moodle.Console.Actions.Enrollments
                 Id = result.Value.Id,
                 StudentId = result.Value.StudentId,
                 CourseId = result.Value.CourseId,
-                EnrolledAt = result.Value.EnrolledAt
+                EnrolledAt = result.Value.EnrolledAt,
+                Student = result.Value.Student,
+                Course = result.Value.Course
             };
 
         }
