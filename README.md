@@ -26,7 +26,7 @@ The project contains an **ERD diagram** that visually displays all database enti
 
 1. Set `Moodle.Console` as the startup project.
 2. Create a PostgreSQL database named `Moodle`.
-3. Apply migrations to create the database schema and seed data by running the following command in PowerShell from the solution root:
+3. Apply migrations to create the database schema and seed data by running the following command in PowerShell from the `/src` folder:
 
 ```powershell
 dotnet ef database update --project Moodle.Infrastructure --startup-project Moodle.Console
