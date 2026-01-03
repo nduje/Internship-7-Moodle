@@ -39,6 +39,7 @@ namespace Moodle.Application.Users.Handlers
             }
 
             _userRepository.Update(user);
+            await _userRepository.SaveAsync();
 
             var response = new UpdateUserEmailResponse
             {

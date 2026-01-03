@@ -99,7 +99,7 @@
             return new MenuOptions()
                 .AddOption("1", "Delete Users", async () => { await menuManager.DeleteUsersMenuAsync(); System.Console.Clear(); return false; })
                 .AddOption("2", "Update Email", async () => { await menuManager.Placeholder(); System.Console.Clear(); return false; })
-                .AddOption("3", "Change Role", async () => { await menuManager.Placeholder(); System.Console.Clear(); return false; })
+                .AddOption("3", "Change Role", async () => { await menuManager.ChangeRoleMenuAsync(); System.Console.Clear(); return false; })
                 .AddOption("4", "Go Back", async () => { System.Console.WriteLine("Exiting application..."); return await Task.FromResult(true); })
                 .Build();
         }
@@ -125,8 +125,8 @@
         public static Dictionary<string, (string Description, Func<Task<bool>> Action)> CreateChangeRoleMenuOptions(MenuManager menuManager)
         {
             return new MenuOptions()
-                .AddOption("1", "Change Student Role", async () => { await menuManager.Placeholder(); System.Console.Clear(); return false; })
-                .AddOption("2", "Change Professor Role", async () => { await menuManager.Placeholder(); System.Console.Clear(); return false; })
+                .AddOption("1", "Change Student Role", async () => { await menuManager.ChangeStudentRoleAsync(); System.Console.Clear(); return false; })
+                .AddOption("2", "Change Professor Role", async () => { await menuManager.ChangeProfessorRoleAsync(); System.Console.Clear(); return false; })
                 .AddOption("3", "Go Back", async () => { System.Console.WriteLine("Exiting application..."); return await Task.FromResult(true); })
                 .Build();
         }
