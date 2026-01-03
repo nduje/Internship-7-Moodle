@@ -48,13 +48,16 @@ namespace Moodle.Application.Announcements.Handlers
                 return new Result<AddAnnouncementResponse?>(null, result.ValidationResult);
             }
 
+            await _announcementRepository.SaveAsync();
+
             var response = new AddAnnouncementResponse
             {
                 Id = announcement.Id,
                 Title = announcement.Title,
                 Content = announcement.Content,
                 CreatedAt = announcement.CreatedAt,
-                CourseId = announcement.CourseId
+                CourseId = announcement.CourseId,
+                Course = announcement.Course
             };
 
             return new Result<AddAnnouncementResponse?>(response, result.ValidationResult);

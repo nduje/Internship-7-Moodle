@@ -79,7 +79,7 @@
         {
             return new MenuOptions()
                 .AddOption("1", "Add student to course", async () => { await menuManager.HandleEnrollStudent(); System.Console.Clear(); return false; })
-                .AddOption("2", "Publish announcement", async () => { await menuManager.Placeholder(); System.Console.Clear(); return false; })
+                .AddOption("2", "Publish announcement", async () => { await menuManager.HandlePublishAnnouncement(); System.Console.Clear(); return false; })
                 .AddOption("3", "Add material", async () => { await menuManager.HandleAddMaterial(); System.Console.Clear(); return false; })
                 .AddOption("4", "Go Back", async () => { System.Console.WriteLine("Exiting application..."); return true; })
                 .Build();

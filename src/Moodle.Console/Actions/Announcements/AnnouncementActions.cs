@@ -29,7 +29,8 @@ namespace Moodle.Console.Actions.Announcements
                 Title = result.Value.Title,
                 Content = result.Value.Content,
                 CreatedAt = result.Value.CreatedAt,
-                CourseId = result.Value.CourseId
+                CourseId = result.Value.CourseId,
+                Course = result.Value.Course
             };
         }
 

@@ -1,4 +1,6 @@
-﻿namespace Moodle.Application.Announcements.DTOs
+﻿using Moodle.Domain.Entities.Courses;
+
+namespace Moodle.Application.Announcements.DTOs
 {
     public class AddAnnouncementResponse
     {
@@ -7,5 +9,6 @@
         public required string Content { get; init; }
         public required DateTime CreatedAt { get; init; }
         public required Guid CourseId { get; init; }
+        public required Course Course { get; init; }
     }
 }

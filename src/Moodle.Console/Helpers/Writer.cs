@@ -116,7 +116,7 @@ namespace Moodle.Console.Helpers
                 var material = materialList[i];
 
                 System.Console.WriteLine($"{i + 1}. Name: {material.Name}\n" +
-                    $"   Description: {material.Url ?? "N/A"}\n" +
+                    $"   URL: {material.Url ?? "N/A"}\n" +
                     $"   Created At: {material.CreatedAt}\n");
             }
         }
@@ -137,8 +137,8 @@ namespace Moodle.Console.Helpers
             {
                 var announcement = announcementsList[i];
 
-                System.Console.WriteLine($"{i + 1}. Name: {announcement.Title}\n" +
-                    $"   Description: {announcement.Content ?? "N/A"}\n" +
+                System.Console.WriteLine($"{i + 1}. Title: {announcement.Title}\n" +
+                    $"   Content: {announcement.Content ?? "N/A"}\n" +
                     $"   Created At: {announcement.CreatedAt}\n");
             }
         }
