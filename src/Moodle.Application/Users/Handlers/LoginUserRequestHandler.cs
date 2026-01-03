@@ -3,6 +3,7 @@ using Moodle.Domain.Common.Model;
 using Moodle.Domain.Persistence.Users;
 using Moodle.Domain.Common.Validation;
 using Moodle.Domain.Common.Validation.ValidationItems;
+using Moodle.Domain.Entities.Users;
 
 namespace Moodle.Application.Users.Handlers
 {
@@ -15,7 +16,7 @@ namespace Moodle.Application.Users.Handlers
             _userRepository = userRepository;
         }
 
-        public async Task<Result<Guid?>> Login(LoginUserRequest request)
+        public async Task<Result<User?>> Login(LoginUserRequest request)
         {
             var validationResult = new ValidationResult();
 
@@ -31,12 +32,12 @@ namespace Moodle.Application.Users.Handlers
                 return Fail(ValidationItems.User.InvalidCredentials);
             }
 
-            return new Result<Guid?>(user.Id, validationResult);
+            return new Result<User?>(user, validationResult);
         }
 
-        private Result<Guid?> Fail(ValidationItem item)
+        private Result<User?> Fail(ValidationItem item)
         {
-            return new Result<Guid?>(Guid.Empty, new ValidationResult().AddValidationItem(item));
+            return new Result<User?>(null, new ValidationResult().AddValidationItem(item));
         }
     }
 }

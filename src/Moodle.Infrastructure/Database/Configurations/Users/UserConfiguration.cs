@@ -31,7 +31,7 @@ namespace Moodle.Infrastructure.Database.Configurations.Users
 
             builder.Property(u => u.BirthDate)
                 .HasColumnName("birth_date")
-                .HasColumnType("date");
+                .HasColumnType("timestamp without time zone");
 
             builder.Property(u => u.Email)
                 .HasColumnName("email")

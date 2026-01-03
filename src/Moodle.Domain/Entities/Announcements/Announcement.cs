@@ -18,7 +18,7 @@ namespace Moodle.Domain.Entities.Announcements
         public required string Title { get; set; } = string.Empty;
         public required string Content { get; set; } = string.Empty;
 
-        public DateTime CreatedAt { get; init; } = DateTime.Now;
+        public DateTime CreatedAt { get; init; } = DateTime.UtcNow;
 
         // Foreign Keys
         public required Guid CourseId { get; set; }

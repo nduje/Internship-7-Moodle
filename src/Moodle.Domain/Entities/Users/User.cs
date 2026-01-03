@@ -22,7 +22,7 @@ namespace Moodle.Domain.Entities.Users
         // Attributes
         public required string FirstName { get; set; }
         public required string LastName { get; set; }
-        public DateOnly? BirthDate { get; set; }
+        public DateTime? BirthDate { get; set; }
 
         public required string Email { get; set; } = string.Empty;
         public required string Password { get; set; } = string.Empty;
@@ -59,7 +59,7 @@ namespace Moodle.Domain.Entities.Users
             if (LastName.Length > NameMaxLength)
                 validationResult.AddValidationItem(ValidationItems.User.LastNameMaxLength);
 
-            if (BirthDate > DateOnly.FromDateTime(DateTime.Today))
+            if (BirthDate > DateTime.Today)
                 validationResult.AddValidationItem(ValidationItems.User.BirthDateInFuture);
 
             if (Role != UserRole.Student && Role != UserRole.Professor && Role != UserRole.Admin)

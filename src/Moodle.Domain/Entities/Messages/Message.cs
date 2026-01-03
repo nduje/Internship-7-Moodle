@@ -16,7 +16,7 @@ namespace Moodle.Domain.Entities.Messages
 
         // Attributes
         public required string Text { get; init; }
-        public DateTime Timestamp { get; init; } = DateTime.Now;
+        public DateTime Timestamp { get; init; } = DateTime.UtcNow;
 
         // Foreign Key
         public required Guid ConversationId { get; set; }

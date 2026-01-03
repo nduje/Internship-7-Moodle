@@ -13,7 +13,7 @@ namespace Moodle.Domain.Entities.Enrollments
         public Guid Id { get; init; } = Guid.NewGuid();
 
         // Attributes
-        public DateTime EnrolledAt { get; init; } = DateTime.Now;
+        public DateTime EnrolledAt { get; init; } = DateTime.UtcNow;
 
         // Foreign Keys
         public required Guid StudentId { get; set; }

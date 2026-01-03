@@ -38,7 +38,7 @@ namespace Moodle.Application.Messages.Handlers
                 ConversationId = conversation.Id,
                 UserId = request.SenderId,
                 Text = request.Text,
-                Timestamp = DateTime.Now
+                Timestamp = DateTime.UtcNow
             };
 
             var result = await message.Create(_messageRepository);

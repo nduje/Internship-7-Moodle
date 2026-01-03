@@ -30,6 +30,7 @@ namespace Moodle.Infrastructure.Database.Seed
                     Id = admin_id,
                     FirstName = "Marko",
                     LastName = "Markić",
+                    BirthDate = null,
                     Email = "admin@moodle.hr",
                     Password = "Admin@123!",
                     Role = UserRole.Admin
@@ -39,6 +40,7 @@ namespace Moodle.Infrastructure.Database.Seed
                     Id = professor1_id,
                     FirstName = "Sven",
                     LastName = "Gotovac",
+                    BirthDate = null,
                     Email = "sven@moodle.hr",
                     Password = "Professor@123!",
                     Role = UserRole.Professor
@@ -48,6 +50,7 @@ namespace Moodle.Infrastructure.Database.Seed
                     Id = professor2_id,
                     FirstName = "Toni",
                     LastName = "Perković",
+                    BirthDate = null,
                     Email = "toni@moodle.hr",
                     Password = "Professor@456!",
                     Role = UserRole.Professor
@@ -57,6 +60,7 @@ namespace Moodle.Infrastructure.Database.Seed
                     Id = student1_id,
                     FirstName = "Luka",
                     LastName = "Lukić",
+                    BirthDate = null,
                     Email = "luka.lukic@moodle.hr",
                     Password = "Student@123!",
                     Role = UserRole.Student
@@ -66,6 +70,7 @@ namespace Moodle.Infrastructure.Database.Seed
                     Id = student2_id,
                     FirstName = "Mate",
                     LastName = "Matić",
+                    BirthDate = null,
                     Email = "mate.matic@moodle.hr",
                     Password = "Student@456!",
                     Role = UserRole.Student
@@ -75,6 +80,7 @@ namespace Moodle.Infrastructure.Database.Seed
                     Id = student3_id,
                     FirstName = "Josipa",
                     LastName = "Josipović",
+                    BirthDate = null,
                     Email = "josipa.josipovic@moodle.hr",
                     Password = "Student@789!",
                     Role = UserRole.Student
