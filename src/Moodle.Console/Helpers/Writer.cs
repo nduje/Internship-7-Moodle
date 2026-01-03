@@ -3,6 +3,7 @@ using Moodle.Application.Conversations.DTOs;
 using Moodle.Application.Courses.DTOs;
 using Moodle.Application.Enrollments.DTOs;
 using Moodle.Application.Materials.DTOs;
+using Moodle.Application.Messages.DTOs;
 using Moodle.Application.Users.DTOs;
 
 namespace Moodle.Console.Helpers
@@ -189,6 +190,28 @@ namespace Moodle.Console.Helpers
                     $"   Role: {user.Role}\n");
             }
         }
+        public static void WriteMessages(IReadOnlyList<GetMessagesByConversationResponse> messages)
+        {
+            var messageList = messages.ToList();
+
+            if (!messageList.Any())
+            {
+                System.Console.Clear();
+                WriteMessage("No courses found.");
+                WaitForKey();
+                return;
+            }
+
+            for (int i = 0; i < messages.Count; i++)
+            {
+                var message = messageList[i];
+
+                System.Console.WriteLine($"{message.Text}\n" +
+                    $"Sent By: {message.Sender?.FirstName + " " + message.Sender?.LastName}\n" +
+                    $"Timestamp: {message.Timestamp}\n");
+            }
+        }
+
 
         public static void DisplayMenu(string title, Dictionary<string, (string Description, Func<Task<bool>> Action)> options)
         {

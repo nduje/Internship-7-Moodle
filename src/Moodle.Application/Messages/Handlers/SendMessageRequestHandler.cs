@@ -5,6 +5,7 @@ using Moodle.Domain.Common.Validation.ValidationItems;
 using Moodle.Domain.Entities.Messages;
 using Moodle.Domain.Persistence.Conversations;
 using Moodle.Domain.Persistence.Messages;
+using Moodle.Domain.Persistence.Users;
 
 namespace Moodle.Application.Messages.Handlers
 {
@@ -12,11 +13,13 @@ namespace Moodle.Application.Messages.Handlers
     {
         private readonly IMessageRepository _messageRepository;
         private readonly IConversationRepository _conversationRepository;
+        private readonly IUserRepository _userRepository;
 
-        public SendMessageRequestHandler(IMessageRepository messageRepository, IConversationRepository conversationRepository)
+        public SendMessageRequestHandler(IMessageRepository messageRepository, IConversationRepository conversationRepository, IUserRepository userRepository)
         {
             _messageRepository = messageRepository;
             _conversationRepository = conversationRepository;
+            _userRepository = userRepository;
         }
 
         public async Task<Result<SendMessageResponse?>> SendMessage(SendMessageRequest request)
@@ -28,6 +31,13 @@ namespace Moodle.Application.Messages.Handlers
                 return Fail(ValidationItems.Conversation.ConversationNotFound);
             }
 
+            var user = await _userRepository.GetById(request.SenderId);
+
+            if (user == null)
+            {
+                return Fail(ValidationItems.User.UserNotFound);
+            }
+
             if (request.SenderId != conversation.User1Id && request.SenderId != conversation.User2Id)
             {
                 return Fail(ValidationItems.Conversation.UserNotInConversation);
@@ -35,10 +45,11 @@ namespace Moodle.Application.Messages.Handlers
 
             var message = new Message
             {
-                ConversationId = conversation.Id,
-                UserId = request.SenderId,
                 Text = request.Text,
-                Timestamp = DateTime.UtcNow
+                ConversationId = conversation.Id,
+                UserId = user.Id,
+                Conversation = conversation,
+                User = user
             };
 
             var result = await message.Create(_messageRepository);
@@ -47,6 +58,8 @@ namespace Moodle.Application.Messages.Handlers
             {
                 return new Result<SendMessageResponse?>(null, result.ValidationResult);
             }
+
+            await _messageRepository.SaveAsync();
 
             var response = new SendMessageResponse
             {

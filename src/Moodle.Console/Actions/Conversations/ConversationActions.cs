@@ -33,7 +33,9 @@ namespace Moodle.Console.Actions.Conversations
             {
                 Id = result.Value.Id,
                 User1Id = result.Value.User1Id,
-                User2Id = result.Value.User2Id
+                User2Id = result.Value.User2Id,
+                User1 = result.Value.User1,
+                User2 = result.Value.User2
             };
         }
 
@@ -52,7 +54,8 @@ namespace Moodle.Console.Actions.Conversations
                 FirstName = c.FirstName,
                 LastName = c.LastName,
                 Email = c.Email,
-                Role = c.Role
+                Role = c.Role,
+                ConversationId = c.ConversationId
             }).ToList();
         }
 

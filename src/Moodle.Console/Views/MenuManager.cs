@@ -24,6 +24,7 @@ namespace Moodle.Console.Views
         private User? _currentUser;
         private Guid _currentCourseId;
         private Guid _chosenUserId;
+        private Guid _currentConversationId;
 
         public MenuManager(
             UserActions userActions,
@@ -44,6 +45,7 @@ namespace Moodle.Console.Views
             _currentUser = null;
             _currentCourseId = Guid.Empty;
             _chosenUserId = Guid.Empty;
+            _currentConversationId = Guid.Empty;
         }
 
         public async Task RunAsync()

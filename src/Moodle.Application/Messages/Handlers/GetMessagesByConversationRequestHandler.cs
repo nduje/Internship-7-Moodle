@@ -40,6 +40,7 @@ namespace Moodle.Application.Messages.Handlers
                 {
                     Id = message.Id,
                     SenderId = message.UserId,
+                    Sender = message.User,
                     Text = message.Text,
                     Timestamp = message.Timestamp
                 })

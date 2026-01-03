@@ -170,6 +170,18 @@ namespace Moodle.Console.Views
                 }
 
                 _chosenUserId = conversations[choice.Value - 1].Id;
+
+                _currentConversationId = await HandleCreateConversation();
+
+                if (_currentConversationId == Guid.Empty)
+                {
+                    return;
+                }
+
+                await HandleSendMessage();
+                _currentConversationId = Guid.Empty;
+
+                return;
             }
         }
 
@@ -208,7 +220,45 @@ namespace Moodle.Console.Views
                     continue;
                 }
 
-                _chosenUserId = conversations[choice.Value - 1].Id;
+                _currentConversationId = conversations[choice.Value - 1].ConversationId;
+
+                await HandleOpenChat();
+            }
+        }
+
+        public async Task ShowMessagesAsync()
+        {
+            if (_currentUser == null)
+                throw new InvalidOperationException("No user has been selected.");
+
+            if (_currentConversationId == Guid.Empty)
+                throw new InvalidOperationException("No conversation has been selected.");
+
+            System.Console.Clear();
+
+            var messages = await _messageActions.GetMessagesByConversationAsync(_currentConversationId, _currentUser.Id);
+
+            Writer.WriteMessage($"=== Messages ===\n");
+            Writer.WriteMessages(messages);
+        }
+
+        public async Task HandleOpenChat()
+        {
+            while (true)
+            {
+                if (_currentConversationId == Guid.Empty)
+                {
+                    return;
+                }
+
+                await ShowMessagesAsync();
+                var exit_required = await HandleSendMessage();
+
+                if (exit_required)
+                {
+                    _currentConversationId = Guid.Empty;
+                    return;
+                }
             }
         }
     }

@@ -63,11 +63,15 @@ namespace Moodle.Application.Conversations.Handlers
                 return new Result<CreateConversationResponse?>(null, result.ValidationResult);
             }
 
+            await _conversationRepository.SaveAsync();
+
             var response = new CreateConversationResponse
             {
                 Id = conversation.Id,
-                User1Id = user1.Id,
-                User2Id = user2.Id
+                User1Id = conversation.User1Id,
+                User2Id = conversation.User2Id,
+                User1 = conversation.User1,
+                User2 = conversation.User2
             };
 
             return new Result<CreateConversationResponse?>(response, result.ValidationResult);

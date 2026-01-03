@@ -21,20 +21,29 @@ namespace Moodle.Application.Conversations.Handlers
         {
             var conversations = await _conversationRepository.GetByUserId(request.UserId);
 
-            var users_ids = conversations
-                .Select(conversation => conversation.User1Id == request.UserId ? conversation.User2Id : conversation.User1Id)
+            var filter = conversations
+                .Select(c => (
+                    UserId: c.User1Id == request.UserId ? c.User2Id : c.User1Id,
+                    ConversationId: c.Id
+                ))
                 .Distinct()
                 .ToList();
 
+            var users_ids = filter.Select(x => x.UserId).ToList();
             var users = await _userRepository.GetByIds(users_ids);
 
-            var response = users.Select(user => new GetChatUsersResponse
+            var response = users.Select(user =>
             {
-                Id = user.Id,
-                FirstName = user.FirstName,
-                LastName = user.LastName,
-                Email = user.Email,
-                Role = user.Role
+                var conversation_id = filter.FirstOrDefault(f => f.UserId == user.Id).ConversationId;
+                return new GetChatUsersResponse
+                {
+                    Id = user.Id,
+                    FirstName = user.FirstName,
+                    LastName = user.LastName,
+                    Email = user.Email,
+                    Role = user.Role,
+                    ConversationId = conversation_id
+                };
             }).ToList();
 
             return new Result<IReadOnlyList<GetChatUsersResponse>>(response, new ValidationResult());

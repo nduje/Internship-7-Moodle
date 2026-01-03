@@ -65,14 +65,14 @@ namespace Moodle.Console.Views
 
             System.Console.Clear();
 
-            var title = Reader.ReadInput("Enter announcement title (type /exit to go back): ");
+            var title = Reader.ReadInput("Enter announcement title (type /exit to go back):");
 
             if (title == "/exit")
             {
                 return;
             }
 
-            var content = Reader.ReadInput("\nEnter announcement content (type /exit to go back): ");
+            var content = Reader.ReadInput("\nEnter announcement content (type /exit to go back):");
 
             if (content == "/exit")
             {
@@ -101,14 +101,14 @@ namespace Moodle.Console.Views
 
             System.Console.Clear();
 
-            var name = Reader.ReadInput("Enter material name (type /exit to go back): ");
+            var name = Reader.ReadInput("Enter material name (type /exit to go back):");
 
             if (name == "/exit")
             {
                 return;
             }
 
-            var url = Reader.ReadInput("\nEnter material URL (type /exit to go back): ");
+            var url = Reader.ReadInput("\nEnter material URL (type /exit to go back):");
 
             if (url == "/exit")
             {
@@ -130,6 +130,65 @@ namespace Moodle.Console.Views
             }
         }
 
-        
+        public async Task<Guid> HandleCreateConversation()
+        {
+            if (_currentUser == null)
+                throw new InvalidOperationException("No user is currently logged in.");
+
+            if (_chosenUserId == Guid.Empty)
+                throw new InvalidOperationException("No user is currently chosen.");
+
+            var conversation = await _conversationActions.CreateConversationAsync(_currentUser.Id, _chosenUserId);
+
+            _chosenUserId = Guid.Empty;
+
+            if (conversation == null)
+            {
+                Writer.WriteMessage("\nInvalid input.");
+                Writer.WaitForKey();
+                return Guid.Empty;
+            }
+
+            else
+            {
+                Writer.WriteMessage($"\nConversation between " +
+                    $"{conversation.User1.FirstName + " " + conversation.User1.LastName} and " +
+                    $"{conversation.User2.FirstName + " " + conversation.User2.LastName} has been created.");
+                Writer.WaitForKey();
+                return conversation.Id;
+            }
+        }
+
+        public async Task<bool> HandleSendMessage()
+        {
+            if (_currentUser == null)
+                throw new InvalidOperationException("No user is currently logged in.");
+
+            if (_currentConversationId == Guid.Empty)
+                throw new InvalidOperationException("No conversation is currently chosen.");
+
+            var text = Reader.ReadInput("\nEnter message text (type /exit to go back):");
+
+            if (text == "/exit")
+            {
+                return true;
+            }
+
+            var message = await _messageActions.SendMessageAsync(_currentConversationId, _currentUser.Id, text);
+
+            if (message == null)
+            {
+                Writer.WriteMessage("\nInvalid input.");
+                Writer.WaitForKey();
+            }
+
+            else
+            {
+                Writer.WriteMessage($"\nMessage by {_currentUser.FirstName + " " + _currentUser.LastName} has been sent.");
+                Writer.WaitForKey();
+            }
+
+            return false;
+        }
     }
 }

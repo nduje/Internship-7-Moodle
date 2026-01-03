@@ -18,19 +18,20 @@ namespace Moodle.Console.Actions.Messages
             _sendMessageRequestHandler = sendMessageRequestHandler;
         }
 
-        public async Task<IReadOnlyList<GetMessagesByConversationResponse>?> GetMessagesByConversationAsync(Guid conversation_id, Guid user_id)
+        public async Task<IReadOnlyList<GetMessagesByConversationResponse>> GetMessagesByConversationAsync(Guid conversation_id, Guid user_id)
         {
             var result = await _getMessagesByConversationRequestHandler.GetMessages(new GetMessagesByConversationRequest(conversation_id, user_id));
 
             if (result.Value == null)
             {
-                return null;
+                return Array.Empty<GetMessagesByConversationResponse>();
             }
 
             return result.Value.Select(m => new GetMessagesByConversationResponse
             {
                 Id = m.Id,
                 SenderId = m.SenderId,
+                Sender = m.Sender,
                 Text = m.Text,
                 Timestamp = m.Timestamp
             }).ToList();

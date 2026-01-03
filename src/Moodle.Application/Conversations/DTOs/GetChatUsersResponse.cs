@@ -9,5 +9,6 @@ namespace Moodle.Application.Conversations.DTOs
         public required string LastName { get; init; }
         public required string Email { get; init; }
         public required UserRole Role { get; init; }
+        public required Guid ConversationId { get; init; }
     }
 }
